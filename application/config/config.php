@@ -9,7 +9,7 @@ use System\Core\Config;
  * APPLICATION DEFAULTS
  *---------------------------------------------------------------
  */
-define('BASE_URL', 'localhost');
+define('BASE_URL', '127.0.0.1/gridfyx');
 define('ENCODING', 'UTF-8');
 define('AUTH_SECRET_KEY', 'N+@17-Q#bDtCAeV+HQ)8~f-qk`}z^_RCzK6dHI]|elI~fv7Ai$/KFw{(b|CYS=|}');
 

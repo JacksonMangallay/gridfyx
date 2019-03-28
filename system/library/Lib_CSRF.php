@@ -122,14 +122,14 @@ class Lib_CSRF{
     }
     
     private function get_token($length){
-        $token = "";
-        $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
-        $codeAlphabet.= "0123456789";
-        $max = strlen($codeAlphabet);
+        $token = '';
+        $code_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $code_alphabet.= 'abcdefghijklmnopqrstuvwxyz';
+        $code_alphabet.= '0123456789';
+        $max = strlen($code_alphabet);
     
         for($i=0; $i < $length; $i++){
-            $token .= $codeAlphabet[$this->crypto_rand_secure(0, $max-1)];
+            $token .= $code_alphabet[$this->crypto_rand_secure(0, $max-1)];
         }
     
         return $token;
