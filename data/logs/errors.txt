@@ -1,0 +1,12 @@
+[2019-03-28] [Warning] include(W:/gridfyx/application/views/includes/header.php): failed to open stream: No such file or directory - W:\gridfyx\application\config\functions.php --> Line 11
+[2019-03-28] [Warning] include(): Failed opening 'W:/gridfyx/application/views/includes/header.php' for inclusion (include_path='.;C:\php\pear') - W:\gridfyx\application\config\functions.php --> Line 11
+[2019-03-28] [Warning] include(W:/gridfyx/application/views/includes/sidebar.php): failed to open stream: No such file or directory - W:\gridfyx\application\config\functions.php --> Line 19
+[2019-03-28] [Warning] include(): Failed opening 'W:/gridfyx/application/views/includes/sidebar.php' for inclusion (include_path='.;C:\php\pear') - W:\gridfyx\application\config\functions.php --> Line 19
+[2019-03-28] [Warning] include(W:/gridfyx/application/views/includes/footer.php): failed to open stream: No such file or directory - W:\gridfyx\application\config\functions.php --> Line 15
+[2019-03-28] [Warning] include(): Failed opening 'W:/gridfyx/application/views/includes/footer.php' for inclusion (include_path='.;C:\php\pear') - W:\gridfyx\application\config\functions.php --> Line 15
+[2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
+[2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
+[2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
+[2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
+[2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
+[2019-03-28] [Error] Class 'System\Library\Lib_SS' not found - W:\gridfyx\application\views\index.php --> Line 7
