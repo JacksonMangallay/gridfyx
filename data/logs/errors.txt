@@ -10,3 +10,10 @@
 [2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
 [2019-03-28] [Notice] Undefined variable: args - W:\gridfyx\application\controllers\Index_Controller.php --> Line 12
 [2019-03-28] [Error] Class 'System\Library\Lib_SS' not found - W:\gridfyx\application\views\index.php --> Line 7
+[2019-03-29] [Error] Class 'System\Core\Exception' not found - W:\gridfyx\system\core\Plugin.php --> Line 27
+[2019-03-29] [Error] Class 'System\Core\Exception' not found - W:\gridfyx\system\core\Plugin.php --> Line 27
+[2019-03-29] [Error] Plugin does not exist. - W:\gridfyx\system\core\Plugin.php --> Line 29
+[2019-03-29] [Error] Plugin does not exist. - W:\gridfyx\system\core\Plugin.php --> Line 29
+[2019-03-29] [Error] Plugin does not exist. - W:\gridfyx\system\core\Plugin.php --> Line 29
+[2019-03-29] [Error] Plugin does not exist. - W:\gridfyx\system\core\Plugin.php --> Line 29
+[2019-03-29] [Error] Plugin does not exist. - W:\gridfyx\system\core\Plugin.php --> Line 29
