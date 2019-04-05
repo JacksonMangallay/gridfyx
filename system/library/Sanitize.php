@@ -4,49 +4,49 @@ declare(strict_types=1);
 
 namespace System\Library;
 
-class Lib_Filter_Sanitize{
+class Sanitize{
 
-    public function sanitize_email($var){
+    public function Email($var){
         return filter_var($var, FILTER_SANITIZE_EMAIL);
     }
 
-    public function sanitize_encoded($var){
+    public function Encoded($var){
         return filter_var($var, FILTER_SANITIZE_ENCODED);
     }
 
-    public function sanitize_magic_quotes($var){
+    public function MagicQuotes($var){
         return filter_var($var, FILTER_SANITIZE_MAGIC_QUOTES);
     }
 
-    public function sanitize_number_float($var){
+    public function NumberFloat($var){
         return filter_var($var, FILTER_SANITIZE_NUMBER_FLOAT);
     }
 
-    public function sanitize_number_int($var){
+    public function NumberInt($var){
         return filter_var($var, FILTER_SANITIZE_NUMBER_INT);
     }
 
-    public function sanitize_special_chars($var){
+    public function SpecialChars($var){
         return filter_var($var, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    public function sanitize_full_special_chars($var){
+    public function FullSpecialChars($var){
         return filter_var($var, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
-    public function sanitize_string($var){
+    public function String($var){
         return filter_var($var, FILTER_SANITIZE_STRING);
     }
 
-    public function sanitize_stripped($var){
+    public function Stripped($var){
         return filter_var($var, FILTER_SANITIZE_STRIPPED);
     }
 
-    public function sanitize_url($var){
+    public function Url($var){
         return filter_var($var, FILTER_SANITIZE_URL);
     }
 
-    public function sanitize_unsafe_raw($var){
+    public function UnsafeRaw($var){
         return filter_var($var, FILTER_UNSAFE_RAW);
     }
 
