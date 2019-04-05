@@ -6,7 +6,7 @@ namespace Application\Controllers;
 
 use System\Core\Controller;
 
-class Index_Controller extends Controller{
+class IndexController extends Controller{
 
     public function index(){
         $this->load->view('index');

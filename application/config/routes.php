@@ -9,8 +9,8 @@ use System\Core\Router;
  * LOAD CONTROLLERS AND ROUTES FILE
  *---------------------------------------------------------------
  */
-Router::SetDefaultController('Index_Controller');
+Router::SetDefaultController('IndexController');
 Router::SetDefaultMethod('index');
 Router::SetNamespace('Application\\Controllers\\');
 
-Router::Load('Index_Routes');
+Router::Load('IndexRoutes');
