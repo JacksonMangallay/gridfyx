@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace System\Library;
 
-class Lib_CSRF{
+class CSRF{
 
     //Start CSRF validation
-    public function initialize_csrf(){
-        $this->set_token();
-        $this->set_host();
-        $this->set_agent();
+    public function Initialize(){
+        $this->SetToken();
+        $this->SetHost();
+        $this->SetAgent();
     }
 
     //Validate CSRF Session token, host, and agent.
-    public function validate_csrf($token, $host, $agent){
+    public function Validate($token, $host, $agent){
 
         $valid = false;
 
-        if($this->check_token($token) && $this->check_host($host) && $this->check_agent($agent)){
+        if($this->CheckToken($token) && $this->CheckHost($host) && $this->CheckAgent($agent)){
             $valid = true;
         }
 
@@ -27,7 +27,7 @@ class Lib_CSRF{
     }
 
     //Destroy CSRF data in session
-    public function destroy_csrf(){
+    public function Destroy(){
 
         $_SESSION['csrf_token'] = null;
         $_SESSION['csrf_host'] = null;
@@ -40,23 +40,23 @@ class Lib_CSRF{
     }
 
     //Stores token in session
-    private function set_token(){
-        $_SESSION['csrf_token'] = $this->get_token(15);
+    private function SetToken(){
+        $_SESSION['csrf_token'] = $this->GetToken(15);
     }
 
     //Stores host in session
-    private function set_host(){
+    private function SetHost(){
         $_SESSION['csrf_host'] = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);;
     }
 
     //Stores user agent in session
-    private function set_agent(){
+    private function SetAgent(){
         $_SESSION['csrf_agent'] = $_SERVER ['HTTP_USER_AGENT'];
     }
 
-    private function check_token($token){
+    private function CheckToken($token){
 
-        if($this->is_empty($_SESSION['csrf_token']) || $this->is_empty($token)){
+        if($this->IsEmpty($_SESSION['csrf_token']) || $this->IsEmpty($token)){
             return false;
         }
 
@@ -64,9 +64,9 @@ class Lib_CSRF{
 
     }
 
-    private function check_host($host){
+    private function CheckHost($host){
 
-        if($this->is_empty($_SESSION['csrf_host']) || $this->is_empty($host)){
+        if($this->IsEmpty($_SESSION['csrf_host']) || $this->IsEmpty($host)){
             return false;
         }
 
@@ -74,9 +74,9 @@ class Lib_CSRF{
 
     }
 
-    private function check_agent($agent){
+    private function CheckAgent($agent){
 
-        if($this->is_empty($_SESSION['csrf_agent']) || $this->is_empty($agent)){
+        if($this->IsEmpty($_SESSION['csrf_agent']) || $this->IsEmpty($agent)){
             return false;
         }
 
@@ -84,7 +84,7 @@ class Lib_CSRF{
 
     }
 
-    private function is_empty($var){
+    private function IsEmpty($var){
 
         if(!isset($var)){
             return true;
@@ -99,7 +99,7 @@ class Lib_CSRF{
     }
 
 
-    private function crypto_rand_secure($min, $max){
+    private function CryptoRandSecure($min, $max){
 
         $range = $max - $min;
 
@@ -121,7 +121,7 @@ class Lib_CSRF{
 
     }
     
-    private function get_token($length){
+    private function GetToken($length){
         $token = '';
         $code_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $code_alphabet.= 'abcdefghijklmnopqrstuvwxyz';
@@ -129,7 +129,7 @@ class Lib_CSRF{
         $max = strlen($code_alphabet);
     
         for($i=0; $i < $length; $i++){
-            $token .= $code_alphabet[$this->crypto_rand_secure(0, $max-1)];
+            $token .= $code_alphabet[$this->CryptoRandSecure(0, $max-1)];
         }
     
         return $token;
