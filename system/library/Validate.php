@@ -4,41 +4,41 @@ declare(strict_types=1);
 
 namespace System\Library;
 
-class Lib_Filter_Validate{
+class Validate{
 
-    public function validate_boolean($var){
+    public function Boolean($var){
         return filter_var($var, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function validate_domain($var){
+    public function Domain($var){
         return filter_var($var, FILTER_VALIDATE_DOMAIN);
     }
 
-    public function validate_email($var){
+    public function Email($var){
         return filter_var($var, FILTER_VALIDATE_EMAIL);
     }
 
-    public function validate_float($var){
+    public function Float($var){
         return filter_var($var, FILTER_VALIDATE_FLOAT);
     }
 
-    public function validate_int($var){
+    public function Int($var){
         return filter_var($var, FILTER_VALIDATE_INT);
     }
     
-    public function validate_ip($var){
+    public function IP($var){
         return filter_var($var, FILTER_VALIDATE_IP);
     }
 
-    public function validate_mac($var){
+    public function Mac($var){
         return filter_var($var, FILTER_VALIDATE_MAC);
     }
 
-    public function validate_regexp($var){
+    public function Regexp($var){
         return filter_var($var, FILTER_VALIDATE_REGEXP);
     }
 
-    public function validate_url($var){
+    public function Url($var){
         return filter_var($var, FILTER_VALIDATE_URL);
     }
 
