@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace System\Core;
 
-use System\Core\DB_Connect;
+use System\Core\DBConnect;
 
 class Model{
 
     public $db;
 
     public function __construct(){
-        $this->db = new DB_Connect();
+        $this->db = new DBConnect();
     }
 
 }

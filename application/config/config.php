@@ -18,10 +18,10 @@ define('AUTH_SECRET_KEY', 'N+@17-Q#bDtCAeV+HQ)8~f-qk`}z^_RCzK6dHI]|elI~fv7Ai$/KF
  * DEVELOPMENT ENVIRONMENT
  *---------------------------------------------------------------
  */
-Config::set_display_error(true);
-Config::set_log_error(true);
-Config::set_timezone('Asia/Manila');
-Config::set_date_format('Y-m-d');
+Config::SetDisplayError(true);
+Config::SetLogError(true);
+Config::SetTimezone('Asia/Manila');
+Config::SetDateFormat('Y-m-d');
 
 /*
  *---------------------------------------------------------------
@@ -34,4 +34,4 @@ Config::set_date_format('Y-m-d');
  * the error pages.
  * 
  */
-Config::set_error_pages_path('errors');
+Config::SetErrorPagesPath('errors');

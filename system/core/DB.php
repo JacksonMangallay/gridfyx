@@ -10,15 +10,15 @@ class DB{
 
     private static $db_groups = [];
 
-    public static function initialize(){
+    public static function Initialize(){
         load_config('database');
     }
 
-    public static function create_group(String $name, Array $group){
+    public static function CreateGroup(String $name, Array $group){
         self::$db_groups[$name] = $group;
     }
 
-    public static function fetch_group(String $name):array{
+    public static function FetchGroup(String $name):array{
     
         if(!array_key_exists($name, self::$db_groups)){
             throw new Exception('Undefined database group selected!');

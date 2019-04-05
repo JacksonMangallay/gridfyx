@@ -20,12 +20,12 @@ function load_config(String $config){
 
 function error_handler(Int $severity,String $message,String $file,Int $line){
     $e = new Exceptions();
-    $e->error_handler($severity, $message, $file, $line);
+    $e->ErrorHandler($severity, $message, $file, $line);
 }
 
 function exception_handler($error){
     $e = new Exceptions();
-    $e->error_handler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
+    $e->ErrorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
 }
 
 function shutdown_handler(){
@@ -34,14 +34,14 @@ function shutdown_handler(){
     $error = error_get_last();
 
     if(isset($error) && ($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING))){
-        $e->error_handler($error['type'], $error['message'], $error['file'], $error['line']);
+        $e->ErrorHandler($error['type'], $error['message'], $error['file'], $error['line']);
     }
 
 }
 
 function http_response(Int $code = 200){
 
-    $file = APPLICATION . DS . 'views' . DS . Config::get_error_pages_path() . DS . $code . '.php';
+    $file = APPLICATION . DS . 'views' . DS . Config::GetErrorPagesPath() . DS . $code . '.php';
 
     $response = [
         100	=> 'Continue',
@@ -107,7 +107,7 @@ function base_url():string{
     if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST'])){
         $baseUrl = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'] . substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
     }else{
-        $baseUrl = 'http://localhost/';
+        $baseUrl = 'http://127.0.0.1/';
     }
 
     return dirname($baseUrl);

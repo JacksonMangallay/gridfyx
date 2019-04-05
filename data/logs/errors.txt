@@ -1,0 +1,7 @@
+[2019-04-05] [Notice] Undefined variable: rote - W:\gridfyx\system\core\Router.php --> Line 172
+[2019-04-05] [Error] method_exists() expects parameter 2 to be string, null given - W:\gridfyx\system\core\Router.php --> Line 201
+[2019-04-05] [Error] Call to undefined function test() - W:\gridfyx\application\views\index.php --> Line 4
+[2019-04-05] [Error] Call to undefined function test() - W:\gridfyx\application\views\index.php --> Line 4
+[2019-04-05] [Error] Call to undefined function test() - W:\gridfyx\application\views\index.php --> Line 4
+[2019-04-05] [Error] Call to undefined function test() - W:\gridfyx\application\views\index.php --> Line 4
+[2019-04-05] [Error] Call to undefined function test() - W:\gridfyx\application\views\index.php --> Line 4

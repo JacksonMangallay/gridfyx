@@ -4,6 +4,6 @@ declare(strict_types = 1);
 
 use System\Core\Router;
 
-Router::get('/',[
+Router::Get('/',[
     'method' => 'index'
 ]);

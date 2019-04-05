@@ -10,7 +10,7 @@ class Loader{
 
     private $view_path = APPLICATION . DS . 'views';
 
-    public function view(String $view, $params = ''){
+    public function View(String $view, $params = ''){
 
         if(empty($view)){
             throw new Exception('Undefined view file.');

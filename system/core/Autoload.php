@@ -20,7 +20,7 @@ class Autoload{
 
     private static $directory;
 
-    public static function add_directory(String $directory){
+    public static function AddDirectory(String $directory){
 
         if(strpos($directory, 'system') !== false){
             throw new Exception('Unable to load restricted directory ' . $directory . '!');
@@ -35,7 +35,7 @@ class Autoload{
     * Load autoload.php and load classes inside set folders
     *---------------------------------------------------------------
     */
-    public static function initialize(){
+    public static function Initialize(){
 
         load_config('autoload');
 
@@ -45,7 +45,7 @@ class Autoload{
 
                 $file = BASEPATH . DS . $directory;
                 $class = str_replace('\\', '/', $class);
-                $class_file = self::get_real_path($file, $class) . '.php';
+                $class_file = self::GetRealPath($file, $class) . '.php';
 
                 if(file_exists($class_file)){
                     require_once($class_file);
@@ -57,7 +57,7 @@ class Autoload{
 
     } 
 
-    private static function get_real_path(String $path, String $class):string{        
+    private static function GetRealPath(String $path, String $class):string{        
         
         $arr_path = explode('/', $path);
         $arr_class = explode('/', $class);

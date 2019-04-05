@@ -6,16 +6,16 @@ namespace System\Core;
 
 use PDO;
 
-class DB_Connect{
+class DBConnect{
 
     private $host;
     private $username;
     private $password;
     private $db_name;
 
-    public function use(String $db_group_name){
+    public function Use(String $db_group_name){
 
-        $db_data = DB::fetch_group($db_group_name);
+        $db_data = DB::FetchGroup($db_group_name);
 
         $this->host = $db_data['host'];
         $this->username = $db_data['username'];
@@ -26,7 +26,7 @@ class DB_Connect{
 
     }
 
-    public function connect(){
+    public function Connect(){
         return new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
     }
 

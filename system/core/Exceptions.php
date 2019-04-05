@@ -26,17 +26,17 @@ class Exceptions{
     ];
 
     public function __construct(){
-        $this->display_error = Config::get_display_error();
-        $this->log_error = Config::get_log_error();
-        $this->timezone = Config::get_timezone();
-        $this->date_format = Config::get_date_format();
+        $this->display_error = Config::GetDisplayError();
+        $this->log_error = Config::GetLogError();
+        $this->timezone = Config::GetTimezone();
+        $this->date_format = Config::GetDateFormat();
     }
 
-    public function error_handler(Int $severity, String $message, String $file, Int $line){
-        $this->handle($severity,$message,$file,$line);
+    public function ErrorHandler(Int $severity, String $message, String $file, Int $line){
+        $this->Handle($severity,$message,$file,$line);
     }
 
-    private function handle(Int $severity, String $message, String $file, Int $line){
+    private function Handle(Int $severity, String $message, String $file, Int $line){
 
         date_default_timezone_set($this->timezone);
 
@@ -45,16 +45,16 @@ class Exceptions{
         $message = '[' .$date. '] [' . $severity . '] ' . $message . ' - ' . $file . ' --> Line ' . $line;
 
         if($this->display_error){
-            $this->display_log($message);
+            $this->DisplayLog($message);
         }
 
         if($this->log_error){
-            $this->write_log($message);
+            $this->WriteLog($message);
         }
 
     }
 
-    private function write_log(String $message){
+    private function WriteLog(String $message){
 
         $error_log_file = DATA . DS . 'logs' . DS . 'errors.txt';
 
@@ -65,14 +65,14 @@ class Exceptions{
             fflush($fp);
             flock($fp, LOCK_UN);
         }else{
-            $this->display_log('Unable to write error log file.');
+            $this->DisplayLog('Unable to write error log file.');
         }
 
         fclose($fp);
 
     }
 
-    private function display_log(String $message){
+    private function DisplayLog(String $message){
 
         $error = '<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
         $error .= $message;

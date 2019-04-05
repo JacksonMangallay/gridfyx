@@ -17,7 +17,7 @@ class Router{
     private static $regex = ['^[A-Za-z-]+$', '[1-9][0-9]*', '^[a-zA-Z0-9]*$'];
     private static $found_match = false;
 
-    public static function load(String $route){
+    public static function Load(String $route){
 
         $route_file = APPLICATION . '/routes/' . $route . '.php';
         
@@ -27,7 +27,7 @@ class Router{
         
     }
 
-    public static function set_default_controller(String $controller){
+    public static function SetDefaultController(String $controller){
 
         if(!isset($controller) || empty($controller)){
             throw new Exception('Default controller should neither be null nor empty.');
@@ -37,7 +37,7 @@ class Router{
 
     }
 
-    public static function set_default_method(String $method){
+    public static function SetDefaultMethod(String $method){
 
         if(!isset($method) || empty($method)){
             throw new Exception('Default method should neither be null nor empty.');
@@ -47,7 +47,7 @@ class Router{
 
     }
 
-    public static function set_namespace(String $namespace){
+    public static function SetNamespace(String $namespace){
 
         if(!isset($namespace) || empty($namespace)){
             throw new Exception('Namespace should neither be null nor empty.');
@@ -57,7 +57,7 @@ class Router{
 
     }
 
-    public static function get(String $url, Array $args = []){
+    public static function Get(String $url, Array $args = []){
 
         if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'GET'){
             throw new Exception('Invalid request.');
@@ -67,7 +67,7 @@ class Router{
             throw new Exception('URL request is not set.');
         }
 
-        $url = self::filter_wildcard($url);
+        $url = self::FilterWildcard($url);
 
         self::$routes['GET'][$url] = [];
         self::$routes['GET'][$url]['controller'] = isset($args['controller']) || !empty($args['controller']) ? $args['controller'] : self::$controller;
@@ -76,7 +76,7 @@ class Router{
 
     }
 
-    public static function post(String $url, Array $args = []){
+    public static function Post(String $url, Array $args = []){
 
         if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'POST'){
             throw new Exception('Invalid request.');
@@ -86,7 +86,7 @@ class Router{
             throw new Exception('URL request is not set.');
         }
 
-        $url = self::filter_wildcard($url);
+        $url = self::FilterWildcard($url);
 
         self::$routes['POST'][$url] = [];
         self::$routes['POST'][$url]['controller'] = isset($args['controller']) || !empty($args['controller']) ? $args['controller'] : '';
@@ -95,22 +95,22 @@ class Router{
 
     }
 
-    public static function run(){
+    public static function Run(){
 
         self::$routes['GET'] = [];
         SELF::$routes['POST'] = [];
         load_config('routes');
 
-        if(!self::is_default_controller_set()){
+        if(!self::IsDefaultControllerSet()){
             throw new Exception('Default controller not set.');
         }
 
-        if(!self::is_default_method_set()){
+        if(!self::IsDefaultMethodSet()){
             throw new Exception('Default method not set.');
         }
 
         $routes = self::$routes[$_SERVER['REQUEST_METHOD']];
-        $request = self::get_uri();
+        $request = self::GetUri();
 
         foreach($routes as $route => $url){
 
@@ -120,13 +120,13 @@ class Router{
                     continue;
                 }
 
-                self::manage_route($url, $request);
+                self::ManageRoute($url, $request);
                 self::$found_match = true;
                 break;
             }
 
-            $route = self::parse($route);
-            $uri = self::parse($request);
+            $route = self::Parse($route);
+            $uri = self::Parse($request);
 
             if(count($route) !== count($uri)){
                 continue;
@@ -134,21 +134,21 @@ class Router{
 
             $params = array_diff($route, $uri);
 
-            if(!self::match_regex($uri, $params)){
+            if(!self::MatchRegex($uri, $params)){
                 continue;
             }
 
-            $route_str = self::replace_regex($route, $uri, $params);
+            $route_str = self::ReplaceRegex($route, $uri, $params);
             $route_str = implode('/', $route_str);
-            $route_str = self::translate_url_dashes($route_str);
+            $route_str = self::TranslateUrlDashes($route_str);
             $uri_str = implode('/', $uri);
-            $uri_str = self::translate_url_dashes($uri_str);
+            $uri_str = self::TranslateUrlDashes($uri_str);
 
             if(strcmp($route_str, $uri_str) !== 0){
                 continue;
             }
 
-            self::manage_route($url, $route_str);
+            self::ManageRoute($url, $route_str);
             self::$found_match = true;
             break;
 
@@ -158,11 +158,11 @@ class Router{
             http_response(404);
         }
 
-        self::dispatch();
+        self::Dispatch();
 
     }
 
-    private static function manage_route(Array $route, String $route_str){
+    private static function ManageRoute(Array $route, String $route_str){
 
         if(!empty($route['controller'])){
             self::$controller = $route['controller'];
@@ -185,7 +185,7 @@ class Router{
 
     }
 
-    private static function dispatch(){
+    private static function Dispatch(){
 
         $file = APPLICATION . DS . 'controllers' . DS . self::$controller . '.php';
 
@@ -206,7 +206,7 @@ class Router{
 
     }
 
-    private static function is_default_controller_set():bool{
+    private static function IsDefaultControllerSet():bool{
             
         if(!isset(self::$controller) || empty(self::$controller)){
             return false;
@@ -216,7 +216,7 @@ class Router{
 
     }
 
-    private static function is_default_method_set():bool{
+    private static function IsDefaultMethodSet():bool{
             
         if(!isset(self::$method) || empty(self::$method)){
             return false;
@@ -226,7 +226,7 @@ class Router{
 
     }
 
-    private static function translate_url_dashes(String $uri):string{
+    private static function TranslateUrlDashes(String $uri):string{
 
         $uri = explode('-', $uri);
         $uri = array_map('ucfirst', $uri);
@@ -236,7 +236,7 @@ class Router{
         return str_replace('-','',$uri);
     }
 
-    private static function replace_regex(Array $route, Array $uri, Array $params):array{
+    private static function ReplaceRegex(Array $route, Array $uri, Array $params):array{
 
         foreach($params as $key => $value){
             $route[$key] = $uri[$key];
@@ -247,7 +247,7 @@ class Router{
 
     }
 
-    private static function match_regex(Array $uri, Array $params):bool{
+    private static function MatchRegex(Array $uri, Array $params):bool{
 
         foreach($params as $key => $value){
             
@@ -261,11 +261,11 @@ class Router{
 
     }
 
-    private static function filter_wildcard(String $url):string{
+    private static function FilterWildcard(String $url):string{
         return str_replace(self::$wildcards, self::$regex, $url);
     }
 
-    private static function get_uri():string{
+    private static function GetUri():string{
 
         if(!isset($_GET['uri'])){
             return '/';
@@ -275,7 +275,7 @@ class Router{
 
     }
 
-    private static function parse(String $str):array{
+    private static function Parse(String $str):array{
 
         $str = explode('/',$str);
         $str = array_filter($str);

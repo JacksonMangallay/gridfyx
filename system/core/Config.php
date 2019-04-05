@@ -15,48 +15,48 @@ class Config{
     //Error pages
     protected static $error_pages_path;
 
-    public static function initialize(){
+    public static function Initialize(){
         load_config('config');
         load_config('functions');
     }
 
-    public static function set_display_error(Bool $display){
+    public static function SetDisplayError(Bool $display){
         self::$display_error = $display;
     }
 
-    public static function get_display_error():bool{
+    public static function GetDisplayError():bool{
         return self::$display_error;
     }
 
-    public static function set_log_error(Bool $log){
+    public static function SetLogError(Bool $log){
         self::$log_error = $log;
     }
 
-    public static function get_log_error():bool{
+    public static function GetLogError():bool{
         return self::$log_error;
     }
 
-    public static function set_timezone(String $timezone){
+    public static function SetTimezone(String $timezone){
         self::$timezone = $timezone;
     }
 
-    public static function get_timezone():string{
+    public static function GetTimezone():string{
         return self::$timezone;
     }
 
-    public static function set_date_format(String $date_format){
+    public static function SetDateFormat(String $date_format){
         self::$date_format = $date_format;
     }
 
-    public static function get_date_format():string{
+    public static function GetDateFormat():string{
         return self::$date_format;
     }
 
-    public static function set_error_pages_path(String $error_pages_path){
+    public static function SetErrorPagesPath(String $error_pages_path){
         self::$error_pages_path = $error_pages_path;
     }
 
-    public static function get_error_pages_path():string{
+    public static function GetErrorPagesPath():string{
         return self::$error_pages_path;
     }
 
