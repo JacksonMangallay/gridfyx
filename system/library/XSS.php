@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace System\Library;
 
-class Lib_XSS{
+class XSS{
 
     private $bad_chars = [
         '&', '&amp;', 'amp', '<', '&lt;',
@@ -21,7 +21,7 @@ class Lib_XSS{
         'prompt', 'eval', 'exec'
     ];
 
-    public function clean($str = ''){
+    public function Clean($str = ''){
 
         if(empty($str)){
             return false;
@@ -30,8 +30,8 @@ class Lib_XSS{
         if(is_array($str)){
 
             foreach(array_keys($str) as $key){
-                $str[$key] = $this->remove_bad_strings($str[$key]);
-                $str[$key] = $this->remove_invisible_chars($str[$key]);
+                $str[$key] = $this->RemoveBadStrings($str[$key]);
+                $str[$key] = $this->RemoveInvisibleChars($str[$key]);
                 $str[$key] = htmlspecialchars($str[$key], ENT_QUOTES, 'UTF-8', true);
             }
 
@@ -39,8 +39,8 @@ class Lib_XSS{
 
         }else{
 
-            $str = $this->remove_bad_strings($str);
-            $str = $this->remove_invisible_chars($str);
+            $str = $this->RemoveBadStrings($str);
+            $str = $this->RemoveInvisibleChars($str);
             $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8', true);
             return $str;
             
@@ -48,7 +48,7 @@ class Lib_XSS{
 
     }
 
-    private function remove_bad_strings(String $str):string{
+    private function RemoveBadStrings(String $str):string{
 
         foreach($this->bad_chars as $bad){
             $str = str_replace($bad,'',$str);
@@ -62,7 +62,7 @@ class Lib_XSS{
 
     }
 
-    private function remove_invisible_chars(String $str):string{
+    private function RemoveInvisibleChars(String $str):string{
 
         $invisibles = [
             '/%0[0-8bcef]/i',
