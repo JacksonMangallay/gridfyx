@@ -6,21 +6,21 @@ namespace System\Library;
 
 use Exception;
 
-class Lib_File_Upload{
+class File{
     
     private $file = [];
 
-	public function data($field, $absolute_dir, $relative_dir, $type){
+	public function Data($field, $absolute_dir, $relative_dir, $type){
 
 		$this->file['type'] = $type;
 		$this->file['field'] = $field;
 		$this->file['absolute_dir'] = $absolute_dir;
 		$this->file['relative_dir'] = $relative_dir;
-		return $this->path();
+		return $this->Path();
 
 	}
 
-	public function path(){
+	public function Path(){
 
 		try{
 
@@ -40,7 +40,7 @@ class Lib_File_Upload{
 			}
 
 			
-			$file_name = $this->location($this->file['field'], $this->file['absolute_dir'], $allowed_mimes);
+			$file_name = $this->Location($this->file['field'], $this->file['absolute_dir'], $allowed_mimes);
 
 			if(!$file_name){
 			   	return 'File not available';
@@ -55,7 +55,7 @@ class Lib_File_Upload{
 
 	}
 
-	public function location($file_path, $destination_dir, array $allowed_mimes = array()){
+	public function Location($file_path, $destination_dir, array $allowed_mimes = array()){
 
 		try{
 
@@ -63,7 +63,7 @@ class Lib_File_Upload{
 		        return false;
 		    }
 
-		    if (!($mime = $this->mime_type($file_path))) {
+		    if (!($mime = $this->MimeType($file_path))) {
 		        return false;
 		    }
 
@@ -72,7 +72,7 @@ class Lib_File_Upload{
 		    }
 
 		    $ext = null;
-		    $ext_mapping = $this->extension_to_mime_type_mapping();
+		    $ext_mapping = $this->ExtensionToMimeTypeMapping();
 
 		    foreach ($ext_mapping as $extension => $mime_type) {
 		        if ($mime_type == $mime) {
@@ -81,18 +81,18 @@ class Lib_File_Upload{
 		        }
 		    }
 
-		    if (empty($ext)) {
+		    if(empty($ext)){
 		        $ext = pathinfo($file_path, PATHINFO_EXTENSION);
 		    }
 
-		    if (empty($ext)) {
+		    if(empty($ext)){
 		        return false;
 		    }
 
 		    $file_name = md5(uniqid(chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0), true)) . '.' . $ext;
 		    $new_file_path = $destination_dir.'/'.$file_name;
 
-		    if(!rename($file_path, $new_file_path)) {
+		    if(!rename($file_path, $new_file_path)){
 		        return false;
 		    }
 
@@ -105,7 +105,7 @@ class Lib_File_Upload{
 	}
 
 
-	public function extension_to_mime_type_mapping(){
+	public function ExtensionToMimeTypeMapping(){
 		return [
 	        'ai'=>'application/postscript',
 	        'aif'=>'audio/x-aiff',
@@ -286,14 +286,13 @@ class Lib_File_Upload{
         ];
 	}
 
-	public function mime_type($file_path){
+	public function MimeType($file_path){
 
-		return mime_content_type($file_path);
+		//return mime_content_type($file_path);
 
-		/*
 		try{
 
-		    if (!is_file($file_path)) {
+		    if(!is_file($file_path)){
 		        return false;
 		    }
 
@@ -306,7 +305,6 @@ class Lib_File_Upload{
 		}catch(Exception $e){
 			echo $e->getMessage();
 		}
-		*/
 
 	}
 
