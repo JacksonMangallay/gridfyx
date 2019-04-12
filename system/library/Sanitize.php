@@ -6,47 +6,47 @@ namespace System\Library;
 
 class Sanitize{
 
-    public function Email($var){
+    public function email($var){
         return filter_var($var, FILTER_SANITIZE_EMAIL);
     }
 
-    public function Encoded($var){
+    public function encoded($var){
         return filter_var($var, FILTER_SANITIZE_ENCODED);
     }
 
-    public function MagicQuotes($var){
+    public function magicQuotes($var){
         return filter_var($var, FILTER_SANITIZE_MAGIC_QUOTES);
     }
 
-    public function NumberFloat($var){
+    public function numberFloat($var){
         return filter_var($var, FILTER_SANITIZE_NUMBER_FLOAT);
     }
 
-    public function NumberInt($var){
+    public function numberInt($var){
         return filter_var($var, FILTER_SANITIZE_NUMBER_INT);
     }
 
-    public function SpecialChars($var){
+    public function specialChars($var){
         return filter_var($var, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    public function FullSpecialChars($var){
+    public function fullSpecialChars($var){
         return filter_var($var, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
-    public function String($var){
+    public function string($var){
         return filter_var($var, FILTER_SANITIZE_STRING);
     }
 
-    public function Stripped($var){
+    public function stripped($var){
         return filter_var($var, FILTER_SANITIZE_STRIPPED);
     }
 
-    public function Url($var){
+    public function url($var){
         return filter_var($var, FILTER_SANITIZE_URL);
     }
 
-    public function UnsafeRaw($var){
+    public function unsafeRaw($var){
         return filter_var($var, FILTER_UNSAFE_RAW);
     }
 

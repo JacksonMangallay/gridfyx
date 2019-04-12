@@ -13,47 +13,47 @@ class Encrypt{
     private $method = 'AES-256-CBC';
     private $options = 0;
 
-    public function SetUsername(String $username){
+    public function setUsername(String $username){
         $this->username = $username;
     }
 
-    public function SetPassword(String $password){
+    public function setPassword(String $password){
         $this->password = $password;
     }
 
-    public function SetMethod(String $method){
+    public function setMethod(String $method){
         $this->method = $method;
     }
 
-    public function Encrypt():string{
+    public function encrypt():string{
 
-        if(!$this->ValidateData()){
+        if(!$this->validateData()){
             throw new Exception('Invalid data parameter!');
         }
 
-        return trim(openssl_encrypt($this->password, $this->method, $this->username, $this->options, $this->GetIV()));
+        return trim(openssl_encrypt($this->password, $this->method, $this->username, $this->options, $this->getIV()));
 
     }
 
-    public function Decrypt(){
+    public function decrypt(){
 
-        if(!$this->ValidateData()){
+        if(!$this->validateData()){
             throw new Exception('Invalid data parameter!');
         }
 
-        return trim(openssl_decrypt($this->password, $this->method, $this->username, $this->options, $this->GetIV()));
+        return trim(openssl_decrypt($this->password, $this->method, $this->username, $this->options, $this->getIV()));
 
     }
 
-    private function ValidateData():bool{
+    private function validateData():bool{
         return $this->password !== null ? true:false;
     }
 
-    private function GetIV():string{
+    private function getIV():string{
         return chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0);
     }
 
-    private function CryptoRandSecure($min, $max){
+    private function cryptoRandSecure($min, $max){
 
         $range = $max - $min;
 
@@ -75,7 +75,7 @@ class Encrypt{
 
     }
     
-    public function RandomString($length){
+    public function randomString($length){
         $token = "";
         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
@@ -83,7 +83,7 @@ class Encrypt{
         $max = strlen($codeAlphabet);
     
         for($i=0; $i < $length; $i++){
-            $token .= $codeAlphabet[$this->CryptoRandSecure(0, $max-1)];
+            $token .= $codeAlphabet[$this->cryptoRandSecure(0, $max-1)];
         }
     
         return $token;

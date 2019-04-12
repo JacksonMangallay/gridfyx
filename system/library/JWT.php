@@ -11,7 +11,7 @@ use \DateTime;
 
 class JWT{
 
-    public function Decode($jwt, $key = null, $verify = true){
+    public function decode($jwt, $key = null, $verify = true){
 
         $tks = explode('.', $jwt);
 
@@ -21,15 +21,15 @@ class JWT{
 
         list($headb64, $payloadb64, $cryptob64) = $tks;
 
-        if(null === ($header = $this->JsonDecode($this->UrlSafeB64Decode($headb64)))){
+        if(null === ($header = $this->jsonDecode($this->urlSafeB64Decode($headb64)))){
             throw new UnexpectedValueException('Invalid segment encoding');
         }
 
-        if(null === $payload = $this->JsonDecode($this->UrlSafeB64Decode($payloadb64))){
+        if(null === $payload = $this->jsonDecode($this->urlSafeB64Decode($payloadb64))){
             throw new UnexpectedValueException('Invalid segment encoding');
         }
 
-        $sig = $this->UrlSafeB64Decode($cryptob64);
+        $sig = $this->urlSafeB64Decode($cryptob64);
 
         if($verify){
 
@@ -37,7 +37,7 @@ class JWT{
                 throw new DomainException('Empty algorithm');
             }
 
-            if($sig !== $this->Sign("$headb64.$payloadb64", $key, $header->alg)){
+            if($sig !== $this->sign("$headb64.$payloadb64", $key, $header->alg)){
                 throw new UnexpectedValueException('Signature verification failed');
             }
         }
@@ -46,22 +46,22 @@ class JWT{
 
     }
 
-    public function Encode($payload, $key, $algo = 'HS256'){
+    public function encode($payload, $key, $algo = 'HS256'){
 
         $header = array('typ' => 'JWT', 'alg' => $algo);
         $segments = array();
-        $segments[] = $this->UrlSafeB64Encode($this->JsonEncode($header));
-        $segments[] = $this->UrlSafeB64Encode($this->JsonEncode($payload));
+        $segments[] = $this->urlSafeB64Encode($this->jsonEncode($header));
+        $segments[] = $this->urlSafeB64Encode($this->jsonEncode($payload));
         $signing_input = implode('.', $segments);
 
-        $signature = $this->Sign($signing_input, $key, $algo);
-        $segments[] = $this->UrlSafeB64Encode($signature);
+        $signature = $this->sign($signing_input, $key, $algo);
+        $segments[] = $this->urlSafeB64Encode($signature);
 
         return implode('.', $segments);
 
     }
 
-    public function Sign($msg, $key, $method = 'HS256'){
+    public function sign($msg, $key, $method = 'HS256'){
 
         $methods = array(
             'HS256' => 'sha256',
@@ -77,12 +77,12 @@ class JWT{
 
     }
 
-    public function JsonDecode($input){
+    public function jsonDecode($input){
 
         $obj = json_decode($input);
 
         if(function_exists('json_last_error') && $errno = json_last_error()){
-            $this->HandleJsonError($errno);
+            $this->handleJsonError($errno);
         }else if($obj === null && $input !== 'null'){
             throw new DomainException('Null result with non-null input');
         }
@@ -91,12 +91,12 @@ class JWT{
 
     }
 
-    public function JsonEncode($input){
+    public function jsonEncode($input){
 
         $json = json_encode($input);
 
         if(function_exists('json_last_error') && $errno = json_last_error()){
-            $this->HandleJsonError($errno);
+            $this->handleJsonError($errno);
         }else if($json === 'null' && $input !== null){
             throw new DomainException('Null result with non-null input');
         }
@@ -105,7 +105,7 @@ class JWT{
 
     }
 
-    public function UrlSafeB64Decode($input){
+    public function urlSafeB64Decode($input){
         
         $remainder = strlen($input) % 4;
 
@@ -118,11 +118,11 @@ class JWT{
 
     }
 
-    public function UrlSafeB64Encode($input){
+    public function urlSafeB64Encode($input){
         return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
     }
 
-    private function HandleJsonError($errno){
+    private function handleJsonError($errno){
 
         $messages = array(
             JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',

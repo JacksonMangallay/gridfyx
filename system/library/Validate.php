@@ -6,39 +6,39 @@ namespace System\Library;
 
 class Validate{
 
-    public function Boolean($var){
+    public function boolean($var){
         return filter_var($var, FILTER_VALIDATE_BOOLEAN);
     }
 
-    public function Domain($var){
+    public function domain($var){
         return filter_var($var, FILTER_VALIDATE_DOMAIN);
     }
 
-    public function Email($var){
+    public function email($var){
         return filter_var($var, FILTER_VALIDATE_EMAIL);
     }
 
-    public function Float($var){
+    public function float($var){
         return filter_var($var, FILTER_VALIDATE_FLOAT);
     }
 
-    public function Int($var){
+    public function int($var){
         return filter_var($var, FILTER_VALIDATE_INT);
     }
     
-    public function IP($var){
+    public function ip($var){
         return filter_var($var, FILTER_VALIDATE_IP);
     }
 
-    public function Mac($var){
+    public function mac($var){
         return filter_var($var, FILTER_VALIDATE_MAC);
     }
 
-    public function Regexp($var){
+    public function regexp($var){
         return filter_var($var, FILTER_VALIDATE_REGEXP);
     }
 
-    public function Url($var){
+    public function url($var){
         return filter_var($var, FILTER_VALIDATE_URL);
     }
 

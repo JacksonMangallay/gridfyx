@@ -11,7 +11,7 @@ class Plugin{
     private static $plugin = [];
     private static $plugin_path = BASEPATH . DS . 'system' . DS . 'plugin';
 
-    public static function Initialize(){
+    public static function initialize(){
 
         load_config('plugins');
 
@@ -21,7 +21,7 @@ class Plugin{
 
     }
 
-    public static function Extend(String $plugin){
+    public static function extend(String $plugin){
 
         $plugin_index = self::$plugin_path . DS . $plugin . DS . 'index.php';
 

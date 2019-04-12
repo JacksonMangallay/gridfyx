@@ -9,4 +9,4 @@ use System\Core\Plugin;
  * LOAD THIRD-PARTY PLUGINS
  *---------------------------------------------------------------
  */
-Plugin::Extend('PHPSpreadsheet');
+Plugin::extend('PHPSpreadsheet');

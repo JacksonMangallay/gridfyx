@@ -9,7 +9,7 @@ use System\Core\Config;
  * APPLICATION DEFAULTS
  *---------------------------------------------------------------
  */
-define('BASE_URL', '127.0.0.1/gridfyx');
+define('BASE_URL', System\Core\base_url());
 define('ENCODING', 'UTF-8');
 define('AUTH_SECRET_KEY', 'N+@17-Q#bDtCAeV+HQ)8~f-qk`}z^_RCzK6dHI]|elI~fv7Ai$/KFw{(b|CYS=|}');
 
@@ -18,10 +18,10 @@ define('AUTH_SECRET_KEY', 'N+@17-Q#bDtCAeV+HQ)8~f-qk`}z^_RCzK6dHI]|elI~fv7Ai$/KF
  * DEVELOPMENT ENVIRONMENT
  *---------------------------------------------------------------
  */
-Config::SetDisplayError(true);
-Config::SetLogError(true);
-Config::SetTimezone('Asia/Manila');
-Config::SetDateFormat('Y-m-d');
+Config::setDisplayError(true);
+Config::setLogError(true);
+Config::setTimezone('Asia/Manila');
+Config::setDateFormat('Y-m-d');
 
 /*
  *---------------------------------------------------------------
@@ -34,4 +34,4 @@ Config::SetDateFormat('Y-m-d');
  * the error pages.
  * 
  */
-Config::SetErrorPagesPath('errors');
+Config::setErrorPagesPath('errors');

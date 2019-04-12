@@ -13,9 +13,9 @@ class DBConnect{
     private $password;
     private $db_name;
 
-    public function Use(String $db_group_name){
+    public function use(String $db_group_name){
 
-        $db_data = DB::FetchGroup($db_group_name);
+        $db_data = DB::fetchGroup($db_group_name);
 
         $this->host = $db_data['host'];
         $this->username = $db_data['username'];
@@ -26,7 +26,7 @@ class DBConnect{
 
     }
 
-    public function Connect(){
+    public function connect(){
         return new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
     }
 

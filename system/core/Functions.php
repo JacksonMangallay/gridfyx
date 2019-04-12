@@ -20,12 +20,12 @@ function load_config(String $config){
 
 function error_handler(Int $severity,String $message,String $file,Int $line){
     $e = new Exceptions();
-    $e->ErrorHandler($severity, $message, $file, $line);
+    $e->errorHandler($severity, $message, $file, $line);
 }
 
 function exception_handler($error){
     $e = new Exceptions();
-    $e->ErrorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
+    $e->errorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
 }
 
 function shutdown_handler(){
@@ -34,14 +34,14 @@ function shutdown_handler(){
     $error = error_get_last();
 
     if(isset($error) && ($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING))){
-        $e->ErrorHandler($error['type'], $error['message'], $error['file'], $error['line']);
+        $e->errorHandler($error['type'], $error['message'], $error['file'], $error['line']);
     }
 
 }
 
 function http_response(Int $code = 200){
 
-    $file = APPLICATION . DS . 'views' . DS . Config::GetErrorPagesPath() . DS . $code . '.php';
+    $file = APPLICATION . DS . 'views' . DS . Config::getErrorPagesPath() . DS . $code . '.php';
 
     $response = [
         100	=> 'Continue',

@@ -9,4 +9,4 @@ use System\Core\Autoload;
  * AUTOLOAD CLASSES
  *---------------------------------------------------------------
  */
-Autoload::AddDirectory('application/models');
+Autoload::addDirectory('application/models');

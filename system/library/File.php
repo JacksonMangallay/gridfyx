@@ -10,17 +10,17 @@ class File{
     
     private $file = [];
 
-	public function Data($field, $absolute_dir, $relative_dir, $type){
+	public function data($field, $absolute_dir, $relative_dir, $type){
 
 		$this->file['type'] = $type;
 		$this->file['field'] = $field;
 		$this->file['absolute_dir'] = $absolute_dir;
 		$this->file['relative_dir'] = $relative_dir;
-		return $this->Path();
+		return $this->path();
 
 	}
 
-	public function Path(){
+	public function path(){
 
 		try{
 
@@ -40,7 +40,7 @@ class File{
 			}
 
 			
-			$file_name = $this->Location($this->file['field'], $this->file['absolute_dir'], $allowed_mimes);
+			$file_name = $this->location($this->file['field'], $this->file['absolute_dir'], $allowed_mimes);
 
 			if(!$file_name){
 			   	return 'File not available';
@@ -55,7 +55,7 @@ class File{
 
 	}
 
-	public function Location($file_path, $destination_dir, array $allowed_mimes = array()){
+	public function location($file_path, $destination_dir, array $allowed_mimes = array()){
 
 		try{
 
@@ -63,7 +63,7 @@ class File{
 		        return false;
 		    }
 
-		    if (!($mime = $this->MimeType($file_path))) {
+		    if (!($mime = $this->mimeType($file_path))) {
 		        return false;
 		    }
 
@@ -72,7 +72,7 @@ class File{
 		    }
 
 		    $ext = null;
-		    $ext_mapping = $this->ExtensionToMimeTypeMapping();
+		    $ext_mapping = $this->extensionToMimeTypeMapping();
 
 		    foreach ($ext_mapping as $extension => $mime_type) {
 		        if ($mime_type == $mime) {
@@ -105,7 +105,7 @@ class File{
 	}
 
 
-	public function ExtensionToMimeTypeMapping(){
+	public function extensionToMimeTypeMapping(){
 		return [
 	        'ai'=>'application/postscript',
 	        'aif'=>'audio/x-aiff',
@@ -286,9 +286,7 @@ class File{
         ];
 	}
 
-	public function MimeType($file_path){
-
-		//return mime_content_type($file_path);
+	public function mimeType($file_path){
 
 		try{
 

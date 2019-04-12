@@ -21,7 +21,7 @@ class XSS{
         'prompt', 'eval', 'exec'
     ];
 
-    public function Clean($str = ''){
+    public function clean($str = ''){
 
         if(empty($str)){
             return false;
@@ -30,8 +30,8 @@ class XSS{
         if(is_array($str)){
 
             foreach(array_keys($str) as $key){
-                $str[$key] = $this->RemoveBadStrings($str[$key]);
-                $str[$key] = $this->RemoveInvisibleChars($str[$key]);
+                $str[$key] = $this->removeBadStrings($str[$key]);
+                $str[$key] = $this->removeInvisibleChars($str[$key]);
                 $str[$key] = htmlspecialchars($str[$key], ENT_QUOTES, 'UTF-8', true);
             }
 
@@ -39,8 +39,8 @@ class XSS{
 
         }else{
 
-            $str = $this->RemoveBadStrings($str);
-            $str = $this->RemoveInvisibleChars($str);
+            $str = $this->removeBadStrings($str);
+            $str = $this->removeInvisibleChars($str);
             $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8', true);
             return $str;
             
@@ -48,7 +48,7 @@ class XSS{
 
     }
 
-    private function RemoveBadStrings(String $str):string{
+    private function removeBadStrings(String $str):string{
 
         foreach($this->bad_chars as $bad){
             $str = str_replace($bad,'',$str);
@@ -62,7 +62,7 @@ class XSS{
 
     }
 
-    private function RemoveInvisibleChars(String $str):string{
+    private function removeInvisibleChars(String $str):string{
 
         $invisibles = [
             '/%0[0-8bcef]/i',
