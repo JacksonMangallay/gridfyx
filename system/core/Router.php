@@ -14,7 +14,7 @@ class Router{
     private static $params = [];
     private static $namespace = '';
     private static $wildcards = [':string', ':int', ':any'];
-    private static $regex = ['^[A-Za-z-]+$', '[1-9][0-9]*', '^[a-zA-Z0-9]*$'];
+    private static $regex = ['^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$', '[1-9][0-9]*', '^[a-zA-Z0-9]*$'];
     private static $found_match = false;
 
     public static function load(String $route){
