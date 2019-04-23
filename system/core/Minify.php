@@ -39,9 +39,6 @@ class Minify{
     
         }
 
-        /*Remove comments*/
-        $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css);
-
         /*Minify all loaded CSS*/
         $minifier = new \MatthiasMullie\Minify\CSS($css);
 
@@ -49,7 +46,7 @@ class Minify{
         $minified_filename_abspath = PUB . $minified_filename;
         
         /*Save minified CSS into a single file*/
-        $minifier->minify($minified_filename_abspath);
+        $minified = $minifier->minify($minified_filename_abspath);
 
     } 
 

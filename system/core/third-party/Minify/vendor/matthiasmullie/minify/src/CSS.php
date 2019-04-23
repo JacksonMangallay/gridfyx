@@ -437,7 +437,7 @@ class CSS extends Minify
                 $url = $params ? substr($url, 0, -strlen($params)) : $url;
 
                 // fix relative url
-                $url = $converter->convert($url);
+                //$url = $converter->convert($url);
 
                 // now that the path has been converted, re-apply GET-params
                 $url .= $params;
