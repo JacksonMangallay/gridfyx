@@ -315,6 +315,8 @@ class CSS extends Minify
             $css = $this->shortenZeroes($css);
             $css = $this->shortenFontWeights($css);
             $css = $this->stripEmptyTags($css);
+            $css = $this->removeComments($css);
+            $css = $this->removeNewLines($css);
 
             // restore the string we've extracted earlier
             $css = $this->restoreExtractedData($css);
@@ -620,6 +622,16 @@ class CSS extends Minify
         $content = preg_replace('/(?<=(\}|;))[^\{\};]+\{\s*\}/', '', $content);
 
         return $content;
+    }
+
+    protected function removeComments($content)
+    {
+        return preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content);
+    }
+
+    protected function removeNewLines($content)
+    {
+        return str_replace(array("\r\n", "\r", "\n"), '', $content);
     }
 
     /**

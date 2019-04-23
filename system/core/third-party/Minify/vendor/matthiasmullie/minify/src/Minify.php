@@ -110,12 +110,6 @@ abstract class Minify
     {
         $content = $this->execute($path);
 
-        /*Remove comments*/
-        $content = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $content);
-
-        /*Remove newlines*/
-        $content = str_replace(array("\r\n", "\r", "\n"), '', $content);
-
         // save to path
         if ($path !== null) {
             $this->save($content, $path);
