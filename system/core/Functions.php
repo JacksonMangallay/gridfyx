@@ -6,6 +6,18 @@ namespace System\Core;
 
 use Exception;
 
+function load_third_party(String $third_party){
+
+    $third_party_index = SYSTEM . DS . 'core' . DS . 'third-party' . DS . $third_party . DS . 'index.php';
+
+    if(!file_exists($third_party_index)){
+        throw new Exception('Unable to load third-party plugin ' . $third_party . '!');
+    }
+
+    require_once($third_party_index);
+
+}
+
 function load_config(String $config){
 
     $config_file = APPLICATION . DS . 'config' . DS . $config . '.php';
