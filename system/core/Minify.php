@@ -23,10 +23,25 @@ use Exception;
 
 class Minify{
 
+    protected static $minify;
+
+    public static function initialize(){
+        load_config('minify');
+    }
+
+    public static function run($run = FALSE){
+        self::$minify = $run;
+    }
+
     public static function css(Array $styles, String $minified_filename){
 
         if(!is_array($styles)){
             throw new Exception('Stylesheets must be in array.');
+        }
+
+        /*Disable minify*/
+        if(self::$minify === FALSE){
+            return true;
         }
 
         $css = '';
@@ -54,6 +69,11 @@ class Minify{
 
         if(!is_array($scripts)){
             throw new Exception('Scripts must be in array.');
+        }
+
+        /*Disable minify*/
+        if(self::$minify === FALSE){
+            return true;
         }
 
         $js = '';

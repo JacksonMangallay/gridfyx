@@ -15,4 +15,5 @@ register_shutdown_function('System\\Core\\shutdown_handler');
 System\Core\Config::initialize();
 System\Core\DB::initialize();
 System\Core\Plugin::initialize();
+System\Core\Minify::initialize();
 System\Core\Router::run();
