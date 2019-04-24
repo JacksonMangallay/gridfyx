@@ -52,7 +52,7 @@ class Config{
         return self::$date_format;
     }
 
-    public static function setErrorPagesPath(String $error_pages_path){
+    public static function setErrorPagesPath(String $error_pages_path = ''){
         self::$error_pages_path = $error_pages_path;
     }
 

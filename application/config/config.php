@@ -27,11 +27,5 @@ Config::setDateFormat('Y-m-d');
  *---------------------------------------------------------------
  * ERROR PAGES
  *---------------------------------------------------------------
- *
- * To make everything in its place, errors path are restricted
- * inside /application/views folder all the time. It's up to you
- * if you'll create another folder inside this path containing
- * the error pages.
- * 
  */
-Config::setErrorPagesPath('errors');
+Config::setErrorPagesPath();
