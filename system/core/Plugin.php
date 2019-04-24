@@ -9,7 +9,7 @@ use Exception;
 class Plugin{
     
     private static $plugin = [];
-    private static $plugin_path = BASEPATH . DS . 'system' . DS . 'plugin';
+    private static $plugin_path = BASEPATH . DS . 'application' . DS . 'plugin';
 
     public static function initialize(){
 
