@@ -159,7 +159,7 @@ function http_response(Int $code = 200):void
 
     if(!file_exists($file))
     {
-        exit('<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>' . $code . '</b> - ' . $response[$code] . '</div>');
+        exit('<div style="position: relative; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>' . $code . '</b> - ' . $response[$code] . '</div>');
     }
 
     require($file);
