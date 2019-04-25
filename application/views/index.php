@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Gridfyx v1.4</title>
-
+    <?php echo new;?>
     <style type="text/css">
         html,body{
             margin: 0;

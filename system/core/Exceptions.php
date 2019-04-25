@@ -117,7 +117,7 @@ class Exceptions
 
     private function displayLog(String $message):void
     {
-        $error = '<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
+        $error = '<div style="position: relative; z-index: 999; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
         $error .= $message;
         $error .= '</div>';
         echo $error;
