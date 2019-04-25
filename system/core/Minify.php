@@ -78,10 +78,8 @@ class Minify
         /*Compress all css files */
         foreach($styles as $file)
         {
-    
             $file = file_get_contents(PUB . $file);
             $css .= $file;
-    
         }
 
         /*Minify all loaded CSS*/
@@ -116,10 +114,8 @@ class Minify
         /*Compress all css files */
         foreach($scripts as $file)
         {
-    
             $file = file_get_contents(PUB . $file);
             $js .= $file;
-    
         }
 
         /*Remove comments*/
