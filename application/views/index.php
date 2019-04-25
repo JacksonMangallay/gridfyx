@@ -46,7 +46,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <h1>Gridfyx 1.4 is now running. Happy coding!</h1>
+        <h1>Gridfyx v1.4 is now running. Happy coding!</h1>
         <p>If this is your first time using Gridfyx, check out the <a href="#!">manual guide here.</a></p>
         <p>The controller of this page is located at: <span class="highlight">/application/controllers/IndexController.php</span></p>
         <p>This view file is located at: <span class="highlight">/application/views/index.php</span></p>
