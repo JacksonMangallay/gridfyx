@@ -1,6 +1,8 @@
 <?php declare(strict_types = 1);
 /**
- * Gridfyx PHP Framework
+ *---------------------------------------------------------------------------------
+ * GRIDFYX PHP FRAMEWORK
+ *---------------------------------------------------------------------------------
  *
  * A progressive PHP framework for small to medium scale web applications
  *
@@ -32,17 +34,6 @@
  * @license	MIT License
  * @link	https://github.com/JacksonMangallay/gridfyx
  * @since	Version 1.0.0
- *
- *---------------------------------------------------------------
- * ACKNOWLEDGEMENT
- *---------------------------------------------------------------
- * This core file uses Matthias Mullie's Minify
- *
- * @ https://www.minifier.org/
- * @ https://github.com/matthiasmullie/minify
- *
- * Downloaded at:
- * @ https://php-download.com/package/matthiasmullie/minify
  *
  */
 namespace System\Core;
