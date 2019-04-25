@@ -5,6 +5,8 @@ defined('BASEPATH') OR exit('Direct access is forbidden');
 require_once(SYSTEM . DS . 'core' . DS .'Autoload.php');
 require_once(SYSTEM . DS . 'core' . DS . 'Functions.php');
 
+System\Core\checkVersion();
+
 System\Core\Autoload::initialize();
 
 error_reporting(0);

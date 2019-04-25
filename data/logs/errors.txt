@@ -1,0 +1,1 @@
+[2019-04-25 12:02:11] [Error] Gridfyx Framework supports PHP Version 7.2 or newer. - W:\gridfyx\system\core\Functions.php --> Line 12
