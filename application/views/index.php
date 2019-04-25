@@ -1,3 +1,4 @@
+<?php defined('BASEPATH') OR exit('Direct access is forbidden'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

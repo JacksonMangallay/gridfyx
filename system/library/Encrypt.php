@@ -1,33 +1,39 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace System\Library;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use Exception;
 
-class Encrypt{
+class Encrypt
+{
 
     private $username;
     private $password;
     private $method = 'AES-256-CBC';
     private $options = 0;
 
-    public function setUsername(String $username){
+    public function setUsername(String $username):void
+    {
         $this->username = $username;
     }
 
-    public function setPassword(String $password){
+    public function setPassword(String $password):void
+    {
         $this->password = $password;
     }
 
-    public function setMethod(String $method){
+    public function setMethod(String $method):void
+    {
         $this->method = $method;
     }
 
-    public function encrypt():string{
+    public function encrypt():string
+    {
 
-        if(!$this->validateData()){
+        if(!$this->validateData())
+        {
             throw new Exception('Invalid data parameter!');
         }
 
@@ -35,9 +41,11 @@ class Encrypt{
 
     }
 
-    public function decrypt(){
+    public function decrypt():string
+    {
 
-        if(!$this->validateData()){
+        if(!$this->validateData())
+        {
             throw new Exception('Invalid data parameter!');
         }
 
@@ -45,19 +53,23 @@ class Encrypt{
 
     }
 
-    private function validateData():bool{
+    private function validateData():bool
+    {
         return $this->password !== null ? true:false;
     }
 
-    private function getIV():string{
+    private function getIV():string
+    {
         return chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0);
     }
 
-    private function cryptoRandSecure($min, $max){
+    private function cryptoRandSecure($min, $max):string
+    {
 
         $range = $max - $min;
 
-        if($range < 1){
+        if($range < 1)
+        {
             return $min;
         }
 
@@ -66,23 +78,27 @@ class Encrypt{
         $bits = (int)$log + 1;
         $filter = (int)(1 << $bits) - 1;
 
-        do{
+        do
+        {
             $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
             $rnd = $rnd & $filter;
-        }while($rnd > $range);
+        }
+        while($rnd > $range);
 
         return $min + $rnd;
 
     }
     
-    public function randomString($length){
+    public function randomString($length):string
+    {
         $token = "";
         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
         $codeAlphabet.= "0123456789";
         $max = strlen($codeAlphabet);
     
-        for($i=0; $i < $length; $i++){
+        for($i=0; $i < $length; $i++)
+        {
             $token .= $codeAlphabet[$this->cryptoRandSecure(0, $max-1)];
         }
     

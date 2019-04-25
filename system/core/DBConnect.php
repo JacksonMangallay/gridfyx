@@ -1,19 +1,21 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Core;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use PDO;
 
-class DBConnect{
+class DBConnect
+{
 
     private $host;
     private $username;
     private $password;
     private $db_name;
 
-    public function use(String $db_group_name){
+    public function use(String $db_group_name)
+    {
 
         $db_data = DB::fetchGroup($db_group_name);
 
@@ -26,7 +28,8 @@ class DBConnect{
 
     }
 
-    public function connect(){
+    public function connect()
+    {
         return new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db_name, $this->username, $this->password);
     }
 

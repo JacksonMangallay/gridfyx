@@ -1,16 +1,18 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Library;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use Exception;
 
-class File{
+class File
+{
     
     private $file = [];
 
-	public function data($field, $absolute_dir, $relative_dir, $type){
+	public function data($field, $absolute_dir, $relative_dir, $type):string
+	{
 
 		$this->file['type'] = $type;
 		$this->file['field'] = $field;
@@ -20,11 +22,14 @@ class File{
 
 	}
 
-	public function path(){
+	public function path()
+	{
 
-		try{
+		try
+		{
 
-			switch($this->file['type']){
+			switch($this->file['type'])
+			{
 				case 'pdf':
 					$allowed_mimes = array('application/pdf');
 					break;
@@ -42,70 +47,86 @@ class File{
 			
 			$file_name = $this->location($this->file['field'], $this->file['absolute_dir'], $allowed_mimes);
 
-			if(!$file_name){
+			if(!$file_name)
+			{
 			   	return 'File not available';
-			}else{
+			}else
+			{
 				return $this->file['relative_dir'] . $file_name;
 			}
 
 
-		}catch(Exception $e){
+		}
+		catch(Exception $e)
+		{
 			echo $e->getMessage();
 		}
 
 	}
 
-	public function location($file_path, $destination_dir, array $allowed_mimes = array()){
+	public function location($file_path, $destination_dir, array $allowed_mimes = array()):mixed
+	{
 
 		try{
 
-		    if (!is_file($file_path) || !is_dir($destination_dir)) {
+			if(!is_file($file_path) || !is_dir($destination_dir))
+			{
 		        return false;
 		    }
 
-		    if (!($mime = $this->mimeType($file_path))) {
+			if(!($mime = $this->mimeType($file_path)))
+			{
 		        return false;
 		    }
 
-		    if (!in_array($mime, $allowed_mimes)) {
+			if(!in_array($mime, $allowed_mimes))
+			{
 		        return false;
 		    }
 
 		    $ext = null;
 		    $ext_mapping = $this->extensionToMimeTypeMapping();
 
-		    foreach ($ext_mapping as $extension => $mime_type) {
-		        if ($mime_type == $mime) {
+			foreach($ext_mapping as $extension => $mime_type)
+			{
+				if($mime_type == $mime)
+				{
 		            $ext = $extension;
 		            break;
 		        }
 		    }
 
-		    if(empty($ext)){
+			if(empty($ext))
+			{
 		        $ext = pathinfo($file_path, PATHINFO_EXTENSION);
 		    }
 
-		    if(empty($ext)){
+			if(empty($ext))
+			{
 		        return false;
 		    }
 
 		    $file_name = md5(uniqid(chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0), true)) . '.' . $ext;
 		    $new_file_path = $destination_dir.'/'.$file_name;
 
-		    if(!rename($file_path, $new_file_path)){
+			if(!rename($file_path, $new_file_path))
+			{
 		        return false;
 		    }
 
 		    return $file_name;
 
-		}catch(Exception $e){
+		}
+		catch(Exception $e)
+		{
 			echo $e->getMessage();
 		}
 
 	}
 
 
-	public function extensionToMimeTypeMapping(){
+	public function extensionToMimeTypeMapping():array
+	{
 		return [
 	        'ai'=>'application/postscript',
 	        'aif'=>'audio/x-aiff',
@@ -286,11 +307,12 @@ class File{
         ];
 	}
 
-	public function mimeType($file_path){
-
-		try{
-
-		    if(!is_file($file_path)){
+	public function mimeType($file_path):mixed
+	{
+		try
+		{
+			if(!is_file($file_path))
+			{
 		        return false;
 		    }
 
@@ -300,7 +322,9 @@ class File{
 
 		    return $mime;
 
-		}catch(Exception $e){
+		}
+		catch(Exception $e)
+		{
 			echo $e->getMessage();
 		}
 

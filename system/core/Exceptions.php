@@ -1,15 +1,17 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Core;
 
-class Exceptions{
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
+class Exceptions
+{
 
     private $display_error;
     private $log_error;
     private $timezone;
     private $date_format;
+
     private $severity = [
         E_ERROR => 'Error',
         E_WARNING => 'Warning',
@@ -25,60 +27,64 @@ class Exceptions{
         E_STRICT => 'Runtime Notice'
     ];
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->display_error = Config::GetDisplayError();
         $this->log_error = Config::GetLogError();
         $this->timezone = Config::GetTimezone();
         $this->date_format = Config::GetDateFormat();
     }
 
-    public function errorHandler(Int $severity, String $message, String $file, Int $line){
+    public function errorHandler(Int $severity, String $message, String $file, Int $line):void
+    {
         $this->handle($severity,$message,$file,$line);
     }
 
-    private function handle(Int $severity, String $message, String $file, Int $line){
-
+    private function handle(Int $severity, String $message, String $file, Int $line):void
+    {
         date_default_timezone_set($this->timezone);
 
         $date = date($this->date_format);
         $severity = $this->severity[$severity];
         $message = '[' .$date. '] [' . $severity . '] ' . $message . ' - ' . $file . ' --> Line ' . $line;
 
-        if($this->display_error){
+        if($this->display_error)
+        {
             $this->displayLog($message);
         }
 
-        if($this->log_error){
+        if($this->log_error)
+        {
             $this->writeLog($message);
         }
-
     }
 
-    private function writeLog(String $message){
-
+    private function writeLog(String $message):void
+    {
         $error_log_file = DATA . DS . 'logs' . DS . 'errors.txt';
 
         $fp = fopen($error_log_file, 'ab');
 
-        if(flock($fp, LOCK_EX)){
+        if(flock($fp, LOCK_EX))
+        {
             fwrite($fp, $message . "\n");
             fflush($fp);
             flock($fp, LOCK_UN);
-        }else{
+        }
+        else
+        {
             $this->displayLog('Unable to write error log file.');
         }
 
         fclose($fp);
-
     }
 
-    private function displayLog(String $message){
-
+    private function displayLog(String $message):string
+    {
         $error = '<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
         $error .= $message;
         $error .= '</div>';
         echo $error;
-
     }
     
 }

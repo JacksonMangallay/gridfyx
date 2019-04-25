@@ -1,12 +1,13 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Core;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use Exception;
 
-class Router{
+class Router
+{
 
     private static $routes = [];
     private static $controller;
@@ -17,19 +18,23 @@ class Router{
     private static $regex = ['^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$', '[1-9][0-9]*', '^[a-zA-Z0-9]*$'];
     private static $found_match = false;
 
-    public static function load(String $route){
+    public static function load(String $route):void
+    {
 
         $route_file = APPLICATION . '/routes/' . $route . '.php';
         
-        if(file_exists($route_file)){
+        if(file_exists($route_file))
+        {
             include($route_file);
         }
         
     }
 
-    public static function setDefaultController(String $controller){
+    public static function setDefaultController(String $controller):void
+    {
 
-        if(!isset($controller) || empty($controller)){
+        if(!isset($controller) || empty($controller))
+        {
             throw new Exception('Default controller should neither be null nor empty.');
         }
 
@@ -37,9 +42,11 @@ class Router{
 
     }
 
-    public static function setDefaultMethod(String $method){
+    public static function setDefaultMethod(String $method):void
+    {
 
-        if(!isset($method) || empty($method)){
+        if(!isset($method) || empty($method))
+        {
             throw new Exception('Default method should neither be null nor empty.');
         }
 
@@ -47,9 +54,11 @@ class Router{
 
     }
 
-    public static function setNamespace(String $namespace){
+    public static function setNamespace(String $namespace):void
+    {
 
-        if(!isset($namespace) || empty($namespace)){
+        if(!isset($namespace) || empty($namespace))
+        {
             throw new Exception('Namespace should neither be null nor empty.');
         }
 
@@ -57,13 +66,16 @@ class Router{
 
     }
 
-    public static function get(String $url, Array $args = []){
+    public static function get(String $url, Array $args = []):void
+    {
 
-        if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'GET'){
+        if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'GET')
+        {
             throw new Exception('Invalid request.');
         }
 
-        if(!isset($url) || empty($url)){
+        if(!isset($url) || empty($url))
+        {
             throw new Exception('URL request is not set.');
         }
 
@@ -76,13 +88,16 @@ class Router{
 
     }
 
-    public static function post(String $url, Array $args = []){
+    public static function post(String $url, Array $args = []):void
+    {
 
-        if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'POST'){
+        if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'POST')
+        {
             throw new Exception('Invalid request.');
         }
 
-        if(!isset($url) || empty($url)){
+        if(!isset($url) || empty($url))
+        {
             throw new Exception('URL request is not set.');
         }
 
@@ -95,28 +110,34 @@ class Router{
 
     }
 
-    public static function run(){
+    public static function run():void
+    {
 
         self::$routes['GET'] = [];
         SELF::$routes['POST'] = [];
         load_config('routes');
 
-        if(!self::isDefaultControllerSet()){
+        if(!self::isDefaultControllerSet())
+        {
             throw new Exception('Default controller not set.');
         }
 
-        if(!self::isDefaultMethodSet()){
+        if(!self::isDefaultMethodSet())
+        {
             throw new Exception('Default method not set.');
         }
 
         $routes = self::$routes[$_SERVER['REQUEST_METHOD']];
         $request = self::getUri();
 
-        foreach($routes as $route => $url){
+        foreach($routes as $route => $url)
+        {
 
-            if($request === '/'){
+            if($request === '/')
+            {
 
-                if(!array_key_exists($request, $routes)){
+                if(!array_key_exists($request, $routes))
+                {
                     continue;
                 }
 
@@ -128,13 +149,15 @@ class Router{
             $route = self::parse($route);
             $uri = self::parse($request);
 
-            if(count($route) !== count($uri)){
+            if(count($route) !== count($uri))
+            {
                 continue;
             }
 
             $params = array_diff($route, $uri);
 
-            if(!self::matchRegex($uri, $params)){
+            if(!self::matchRegex($uri, $params))
+            {
                 continue;
             }
 
@@ -144,7 +167,8 @@ class Router{
             $uri_str = implode('/', $uri);
             $uri_str = self::translateUrlDashes($uri_str);
 
-            if(strcmp($route_str, $uri_str) !== 0){
+            if(strcmp($route_str, $uri_str) !== 0)
+            {
                 continue;
             }
 
@@ -154,7 +178,8 @@ class Router{
 
         }
 
-        if(!self::$found_match){
+        if(!self::$found_match)
+        {
             http_response(404);
         }
 
@@ -162,34 +187,43 @@ class Router{
 
     }
 
-    private static function manageRoute(Array $route, String $route_str){
+    private static function manageRoute(Array $route, String $route_str):void
+    {
 
-        if(!empty($route['controller'])){
+        if(!empty($route['controller']))
+        {
             self::$controller = $route['controller'];
         }
 
-        if(!empty($route['method'])){
+        if(!empty($route['method']))
+        {
             self::$method = $route['method'];
-        }else{
+        }
+        else
+        {
 
-            if($route_str !== '/'){
+            if($route_str !== '/')
+            {
                 self::$method = explode('/', $route_str);
                 self::$method = self::$method[0];
             }
 
         }
 
-        if(!empty($route['params'])){
+        if(!empty($route['params']))
+        {
             self::$params = $route['params'];
         }
 
     }
 
-    private static function dispatch(){
+    private static function dispatch():void
+    {
 
         $file = APPLICATION . DS . 'controllers' . DS . self::$controller . '.php';
 
-        if(!file_exists($file)){
+        if(!file_exists($file))
+        {
             http_response(404);
         }
 
@@ -198,7 +232,8 @@ class Router{
         self::$controller = self::$namespace . self::$controller;
         self::$controller = new self::$controller();
 
-        if(!method_exists(self::$controller, self::$method)){
+        if(!method_exists(self::$controller, self::$method))
+        {
             http_response(404);
         }
 
@@ -206,9 +241,11 @@ class Router{
 
     }
 
-    private static function isDefaultControllerSet():bool{
+    private static function isDefaultControllerSet():bool
+    {
             
-        if(!isset(self::$controller) || empty(self::$controller)){
+        if(!isset(self::$controller) || empty(self::$controller))
+        {
             return false;
         }
 
@@ -216,9 +253,11 @@ class Router{
 
     }
 
-    private static function isDefaultMethodSet():bool{
+    private static function isDefaultMethodSet():bool
+    {
             
-        if(!isset(self::$method) || empty(self::$method)){
+        if(!isset(self::$method) || empty(self::$method))
+        {
             return false;
         }
 
@@ -226,7 +265,8 @@ class Router{
 
     }
 
-    private static function translateUrlDashes(String $uri):string{
+    private static function translateUrlDashes(String $uri):string
+    {
 
         $uri = explode('-', $uri);
         $uri = array_map('ucfirst', $uri);
@@ -236,9 +276,11 @@ class Router{
         return str_replace('-','',$uri);
     }
 
-    private static function replaceRegex(Array $route, Array $uri, Array $params):array{
+    private static function replaceRegex(Array $route, Array $uri, Array $params):array
+    {
 
-        foreach($params as $key => $value){
+        foreach($params as $key => $value)
+        {
             $route[$key] = $uri[$key];
             array_push(self::$params, $route[$key]);
         }
@@ -247,11 +289,14 @@ class Router{
 
     }
 
-    private static function matchRegex(Array $uri, Array $params):bool{
+    private static function matchRegex(Array $uri, Array $params):bool
+    {
 
-        foreach($params as $key => $value){
+        foreach($params as $key => $value)
+        {
             
-            if(!preg_match('#^' . $value . '$#', $uri[$key])){
+            if(!preg_match('#^' . $value . '$#', $uri[$key]))
+            {
                 return false;
             }
 
@@ -261,13 +306,16 @@ class Router{
 
     }
 
-    private static function filterWildcard(String $url):string{
+    private static function filterWildcard(String $url):string
+    {
         return str_replace(self::$wildcards, self::$regex, $url);
     }
 
-    private static function getUri():string{
+    private static function getUri():string
+    {
 
-        if(!isset($_GET['uri'])){
+        if(!isset($_GET['uri']))
+        {
             return '/';
         }
 
@@ -275,7 +323,8 @@ class Router{
 
     }
 
-    private static function parse(String $str):array{
+    private static function parse(String $str):array
+    {
 
         $str = explode('/',$str);
         $str = array_filter($str);

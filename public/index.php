@@ -1,6 +1,4 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 define('BASEPATH', str_replace('\\', '/',dirname(dirname(__FILE__))));
 define('DS', str_replace('\\', '/', DIRECTORY_SEPARATOR ));

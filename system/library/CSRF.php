@@ -1,24 +1,28 @@
-<?php
-
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace System\Library;
 
-class CSRF{
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
+class CSRF
+{
 
     //Start CSRF validation
-    public function initialize(){
+    public function initialize():void
+    {
         $this->setToken();
         $this->setHost();
         $this->setAgent();
     }
 
     //Validate CSRF Session token, host, and agent.
-    public function validate($token, $host, $agent){
+    public function validate($token, $host, $agent):bool
+    {
 
         $valid = false;
 
-        if($this->checkToken($token) && $this->checkHost($host) && $this->checkAgent($agent)){
+        if($this->checkToken($token) && $this->checkHost($host) && $this->checkAgent($agent))
+        {
             $valid = true;
         }
 
@@ -27,7 +31,8 @@ class CSRF{
     }
 
     //Destroy CSRF data in session
-    public function destroy(){
+    public function destroy():void
+    {
 
         $_SESSION['csrf_token'] = null;
         $_SESSION['csrf_host'] = null;
@@ -40,23 +45,28 @@ class CSRF{
     }
 
     //Stores token in session
-    private function setToken(){
+    private function setToken():void
+    {
         $_SESSION['csrf_token'] = $this->getToken(15);
     }
 
     //Stores host in session
-    private function setHost(){
+    private function setHost():void
+    {
         $_SESSION['csrf_host'] = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);;
     }
 
     //Stores user agent in session
-    private function setAgent(){
+    private function setAgent():void
+    {
         $_SESSION['csrf_agent'] = $_SERVER ['HTTP_USER_AGENT'];
     }
 
-    private function checkToken($token){
+    private function checkToken($token):bool
+    {
 
-        if($this->isEmpty($_SESSION['csrf_token']) || $this->isEmpty($token)){
+        if($this->isEmpty($_SESSION['csrf_token']) || $this->isEmpty($token))
+        {
             return false;
         }
 
@@ -64,9 +74,11 @@ class CSRF{
 
     }
 
-    private function checkHost($host){
+    private function checkHost($host):bool
+    {
 
-        if($this->isEmpty($_SESSION['csrf_host']) || $this->isEmpty($host)){
+        if($this->isEmpty($_SESSION['csrf_host']) || $this->isEmpty($host))
+        {
             return false;
         }
 
@@ -74,9 +86,11 @@ class CSRF{
 
     }
 
-    private function checkAgent($agent){
+    private function checkAgent($agent):bool
+    {
 
-        if($this->isEmpty($_SESSION['csrf_agent']) || $this->isEmpty($agent)){
+        if($this->isEmpty($_SESSION['csrf_agent']) || $this->isEmpty($agent))
+        {
             return false;
         }
 
@@ -84,13 +98,16 @@ class CSRF{
 
     }
 
-    private function isEmpty($var){
+    private function isEmpty($var):bool
+    {
 
-        if(!isset($var)){
+        if(!isset($var))
+        {
             return true;
         }
 
-        if(empty($var) || is_null($var)){
+        if(empty($var) || is_null($var))
+        {
             return true;
         }
 
@@ -99,11 +116,13 @@ class CSRF{
     }
 
 
-    private function cryptoRandSecure($min, $max){
+    private function cryptoRandSecure($min, $max):string
+    {
 
         $range = $max - $min;
 
-        if($range < 1){
+        if($range < 1)
+        {
             return $min;
         }
 
@@ -112,23 +131,27 @@ class CSRF{
         $bits = (int)$log + 1;
         $filter = (int)(1 << $bits) - 1;
 
-        do{
+        do
+        {
             $rnd = hexdec(bin2hex(openssl_random_pseudo_bytes($bytes)));
             $rnd = $rnd & $filter;
-        }while($rnd > $range);
+        }
+        while($rnd > $range);
 
         return $min + $rnd;
 
     }
     
-    private function getToken($length){
+    private function getToken($length):string
+    {
         $token = '';
         $code_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $code_alphabet.= 'abcdefghijklmnopqrstuvwxyz';
         $code_alphabet.= '0123456789';
         $max = strlen($code_alphabet);
     
-        for($i=0; $i < $length; $i++){
+        for($i=0; $i < $length; $i++)
+        {
             $token .= $code_alphabet[$this->cryptoRandSecure(0, $max-1)];
         }
     

@@ -2,4 +2,7 @@
 	RewriteEngine On
 	RewriteRule ^$public/ [L]
 	RewriteRule (.*) public/$1 [L]
+	RewriteRule ^application/?$ - [R=404,NC,L]
+	RewriteRule ^data/?$ - [R=404,NC,L]
+	RewriteRule ^system/?$ - [R=404,NC,L]
 </IfModule>

@@ -1,16 +1,18 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Core;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use Exception;
 
-function load_third_party(String $third_party){
+function load_third_party(String $third_party):void
+{
 
     $third_party_index = SYSTEM . DS . 'core' . DS . 'third-party' . DS . $third_party . DS . 'index.php';
 
-    if(!file_exists($third_party_index)){
+    if(!file_exists($third_party_index))
+    {
         throw new Exception('Unable to load third-party plugin ' . $third_party . '!');
     }
 
@@ -18,11 +20,13 @@ function load_third_party(String $third_party){
 
 }
 
-function load_config(String $config){
+function load_config(String $config):void
+{
 
     $config_file = APPLICATION . DS . 'config' . DS . $config . '.php';
 
-    if(!file_exists($config_file)){
+    if(!file_exists($config_file))
+    {
         throw new Exception('Unable to load configuration file ' . $config . '!');
     }
 
@@ -30,17 +34,20 @@ function load_config(String $config){
 
 }
 
-function error_handler(Int $severity,String $message,String $file,Int $line){
+function error_handler(Int $severity,String $message,String $file,Int $line):void
+{
     $e = new Exceptions();
     $e->errorHandler($severity, $message, $file, $line);
 }
 
-function exception_handler($error){
+function exception_handler($error):void
+{
     $e = new Exceptions();
     $e->errorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
 }
 
-function shutdown_handler(){
+function shutdown_handler():void
+{
 
     $e = new Exceptions();
     $error = error_get_last();
@@ -51,7 +58,8 @@ function shutdown_handler(){
 
 }
 
-function http_response(Int $code = 200){
+function http_response(Int $code = 200):void
+{
 
     $file = APPLICATION . DS . 'views' . DS . Config::getErrorPagesPath() . DS . $code . '.php';
 
@@ -106,7 +114,8 @@ function http_response(Int $code = 200){
 
     header('HTTP/1.1 ' . $code . ' ' . $response[$code] . '.');
 
-    if(!file_exists($file)){
+    if(!file_exists($file))
+    {
         exit($code . ' ' . $response[$code]);
     }
 
@@ -114,11 +123,15 @@ function http_response(Int $code = 200){
     exit;
 }
 
-function base_url():string{
+function base_url():string
+{
 
-    if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST'])){
+    if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST']))
+    {
         $baseUrl = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'] . substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
-    }else{
+    }
+    else
+    {
         $baseUrl = 'http://127.0.0.1/';
     }
 
@@ -126,13 +139,19 @@ function base_url():string{
 
 }
 
-function is_https():bool{
+function is_https():bool
+{
 
-    if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off'){
+    if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
+    {
         return true;
-    }elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https'){
+    }
+    elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
+    {
         return true;
-    }elseif(!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off'){
+    }
+    elseif(!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
+    {
         return true;
     }
 
@@ -140,6 +159,7 @@ function is_https():bool{
 
 }
 
-function redirect($location = '/'){
+function redirect($location = '/')
+{
     header('Location: ' . BASE_URL . $location);
 }

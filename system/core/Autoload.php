@@ -1,12 +1,13 @@
-<?php
-
-declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 namespace System\Core;
 
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
 use Exception;
 
-class Autoload{
+class Autoload
+{
 
     /*
     *---------------------------------------------------------------
@@ -20,9 +21,11 @@ class Autoload{
 
     private static $directory;
 
-    public static function addDirectory(String $directory){
+    public static function addDirectory(String $directory):void
+    {
 
-        if(strpos($directory, 'system') !== false){
+        if(strpos($directory, 'system') !== false)
+        {
             throw new Exception('Unable to load restricted directory ' . $directory . '!');
         }
 
@@ -35,19 +38,23 @@ class Autoload{
     * Load autoload.php and load classes inside set folders
     *---------------------------------------------------------------
     */
-    public static function initialize(){
+    public static function initialize():void
+    {
 
         load_config('autoload');
 
-        spl_autoload_register(function(String $class){
+        spl_autoload_register(function(String $class)
+        {
 
-            foreach(self::$directories as $directory){
+            foreach(self::$directories as $directory)
+            {
 
                 $file = BASEPATH . DS . $directory;
                 $class = str_replace('\\', '/', $class);
                 $class_file = self::getRealPath($file, $class) . '.php';
 
-                if(file_exists($class_file)){
+                if(file_exists($class_file))
+                {
                     require_once($class_file);
                 }
 
@@ -57,7 +64,8 @@ class Autoload{
 
     } 
 
-    private static function getRealPath(String $path, String $class):string{        
+    private static function getRealPath(String $path, String $class):string
+    {        
         
         $arr_path = explode('/', $path);
         $arr_class = explode('/', $class);
