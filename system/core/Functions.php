@@ -45,7 +45,7 @@ use Exception;
 function checkVersion()
 {
     if(version_compare(PHP_VERSION, '7.2') < 0){
-        die('<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>Gridfyx PHP Framework supports PHPv7.2 or newer. Please update your PHP version.</div>');
+        die('<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>Gridfyx PHP Framework<b/> supports PHPv7.2 or newer. Please update your PHP version.</div>');
     }
 }
 
@@ -159,7 +159,7 @@ function http_response(Int $code = 200):void
 
     if(!file_exists($file))
     {
-        exit($code . ' ' . $response[$code]);
+        exit('<div style="position: relative; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>' . $code . '</b> - ' . $response[$code] . '</div>');
     }
 
     require($file);
