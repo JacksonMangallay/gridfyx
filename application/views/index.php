@@ -18,38 +18,28 @@
         }
 
         body{
-            padding: 40px;
+            padding: 10px;
         }
 
         .wrapper{
             padding: 20px;
-            border: 1px solid #d0d0d0;
         }
 
         h1{
-            margin: 0;
+            margin: 0 0 20px;
             font-weight: 100;
             font-size: 1.7rem;
         }
 
-        hr{
-            border-bottom: 0;
-            border-left: 0;
-            border-right: 0;
-            border-width: 1px;
-            border-color: #d0d0d0;
-            margin: 20px 0;
-        }
-
         a{
-            color: #003399;
+            color: #00B16A;
         }
 
         .highlight{
             display: block;
             margin-top: 10px;
             padding: 15px;
-            background-color: #eaeaea;
+            background-color: #f5f5f5;
         }
     </style>
 
@@ -57,7 +47,6 @@
 <body>
     <div class="wrapper">
         <h1>Gridfyx 1.4 is now running. Happy coding!</h1>
-        <hr>
         <p>If this is your first time using Gridfyx, check out the <a href="#!">manual guide here.</a></p>
         <p>The controller of this page is located at: <span class="highlight">/application/controllers/IndexController.php</span></p>
         <p>This view file is located at: <span class="highlight">/application/views/index.php</span></p>
