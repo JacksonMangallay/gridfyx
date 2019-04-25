@@ -1,6 +1,8 @@
 <?php declare(strict_types=1);
 /**
- * Gridfyx PHP Framework
+ *---------------------------------------------------------------------------------
+ * GRIDFYX PHP FRAMEWORK
+ *---------------------------------------------------------------------------------
  *
  * A progressive PHP framework for small to medium scale web applications
  *
