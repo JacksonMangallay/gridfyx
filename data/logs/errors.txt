@@ -3,3 +3,9 @@
 [2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
 [2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
 [2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
+[2019-04-25] [Error] syntax error, unexpected ';' - W:\gridfyx\application\views\index.php --> Line 9
