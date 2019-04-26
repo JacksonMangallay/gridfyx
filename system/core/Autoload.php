@@ -45,11 +45,9 @@ use Exception;
 class Autoload
 {
 
-    /*
-    *---------------------------------------------------------------
-    * Add directories to be loaded in default
-    *---------------------------------------------------------------
-    */
+    /** 
+     * Directories loaded by default
+     */
     private static $directories = [
         'system/core',
         'system/library'
@@ -57,6 +55,9 @@ class Autoload
 
     private static $directory;
 
+    /** 
+     * Add directory to be loaded
+     */
     public static function addDirectory(String $directory):void
     {
 
@@ -69,14 +70,15 @@ class Autoload
     
     }
 
-    /*
-    *---------------------------------------------------------------
-    * Load autoload.php and load classes inside set folders
-    *---------------------------------------------------------------
-    */
+    /** 
+     * Run autoloader
+     */
     public static function initialize():void
     {
 
+        /** 
+         * Load folders set at /application/config/autoload.php
+         */
         load_config('autoload');
 
         spl_autoload_register(function(String $class)
