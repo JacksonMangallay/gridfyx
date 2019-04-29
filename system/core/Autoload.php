@@ -48,10 +48,10 @@ class Autoload
     /** 
      * Directories loaded by default
      */
-    private static $directories = [
+    private static $directories = array(
         'system/core',
         'system/library'
-    ];
+    );
 
     private static $directory;
 

@@ -43,20 +43,20 @@ defined('BASEPATH') OR exit('Direct access is forbidden');
 class XSS
 {
 
-    private $bad_chars = [
+    private $bad_chars = array(
         '&', '&amp;', 'amp', '<', '&lt;',
         'lt;', '>', '&gt;', 'gt;', '"',
         '&quot;', 'quot;', "'", '&#x27;',
         '#x27;', '/', '&#x2F;', '#x2F;'
-    ];
+    );
 
-    private $bad_names = [
+    private $bad_names = array(
         'script', 'javascript', 'expression',
         'vbscript', 'jscript', 'wscript',
         'vbs', 'base64', 'applet', 'alert', 'document',
         'write', 'cookie', 'window', 'confirm',
         'prompt', 'eval', 'exec'
-    ];
+    );
 
     public function clean($str = '')
     {
@@ -111,12 +111,12 @@ class XSS
     private function removeInvisibleChars(String $str):string
     {
 
-        $invisibles = [
+        $invisibles = array(
             '/%0[0-8bcef]/i',
             '/%1[0-9a-f]/i',
             '/%7f/i',
             '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/S'
-        ];
+        );
 
         do
         {

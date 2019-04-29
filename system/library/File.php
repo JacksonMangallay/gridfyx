@@ -45,7 +45,7 @@ use Exception;
 class File
 {
     
-    private $file = [];
+    private $file = array();
 
 	public function data($field, $absolute_dir, $relative_dir, $type):string
 	{
@@ -76,7 +76,7 @@ class File
 					$allowed_mimes = array('application/msword', 'application/docx', 'application/doc', 'application/application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 					break;
 				default:
-					$allowed_mimes = [];
+					$allowed_mimes = array();
 					break;
 			}
 

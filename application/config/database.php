@@ -9,9 +9,9 @@ use System\Core\DB;
  * SETUP APPLICATION DATABASE
  *---------------------------------------------------------------
  */
-DB::createGroup('default',[
+DB::createGroup('default',array(
     'host' => '',
     'username' => '',
     'password' => '',
     'db_name' => ''
-]);
+));

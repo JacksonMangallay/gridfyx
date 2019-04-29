@@ -47,7 +47,7 @@ class Router
 	/**
 	 * Store all routes
 	 */
-    private static $routes = [];
+    private static $routes = array();
 
 	/**
 	 * Controller specified by a route
@@ -62,7 +62,7 @@ class Router
 	/**
 	 * Parameters passed when calling a method
 	 */
-    private static $params = [];
+    private static $params = array();
 
 	/**
 	 * Controllers namespace.
@@ -76,13 +76,21 @@ class Router
      * :int - allow only integer variables
      * :any - allow any type of variables
 	 */
-    private static $wildcards = [':string', ':int', ':any'];
+    private static $wildcards = array(
+        ':string',
+        ':int',
+        ':any'
+    );
 
 	/**
      * Check if a variable matches the desired type
      * as set in $wildcards
 	 */
-    private static $regex = ['^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$', '[1-9][0-9]*', '^[a-zA-Z0-9]*$'];
+    private static $regex = array(
+        '^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$',
+        '[1-9][0-9]*',
+        '^[a-zA-Z0-9]*$'
+    );
 
 	/**
      * Check if a URI request matches
@@ -242,7 +250,7 @@ class Router
         /** 
          * Save a route to routes array with GET method as index 
          */
-        self::$routes['POST'][$url] = [];
+        self::$routes['POST'][$url] = array();
 
         /**
          * Check if a controller is set on a route.
@@ -274,12 +282,12 @@ class Router
         /**
          * Store all GET methods
          */
-        self::$routes['GET'] = [];
+        self::$routes['GET'] = array();
 
         /**
          * Store all POST method routes
          */
-        self::$routes['POST'] = [];
+        self::$routes['POST'] = array();
 
         /**
          * Load routes.php config file.

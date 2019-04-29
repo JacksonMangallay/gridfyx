@@ -48,7 +48,7 @@ class Exceptions
     private $timezone;
     private $date_format;
 
-    private $severity = [
+    private $severity = array(
         E_ERROR => 'Error',
         E_WARNING => 'Warning',
         E_PARSE => 'Parsing Error',
@@ -61,7 +61,7 @@ class Exceptions
         E_USER_WARNING => 'User Warning',
         E_USER_NOTICE => 'User Notice',
         E_STRICT => 'Runtime Notice'
-    ];
+    );
 
     public function __construct()
     {

@@ -45,7 +45,7 @@ use Exception;
 class DB
 {
 
-    private static $db_groups = [];
+    private static $db_groups = array();
 
     public static function initialize():void
     {

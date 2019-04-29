@@ -106,7 +106,7 @@ function http_response(Int $code = 200):void
 
     $file = APPLICATION . DS . 'views' . DS . Config::getErrorPagesPath() . DS . $code . '.php';
 
-    $response = [
+    $response = array(
         100	=> 'Continue',
         101	=> 'Switching Protocols',
         200	=> 'OK',
@@ -153,7 +153,7 @@ function http_response(Int $code = 200):void
         504	=> 'Gateway Timeout',
         505	=> 'HTTP Version Not Supported',
         511	=> 'Network Authentication Required'
-    ];
+    );
 
     header('HTTP/1.1 ' . $code . ' ' . $response[$code] . '.');
 

@@ -45,7 +45,7 @@ use Exception;
 class Plugin
 {
     
-    private static $plugin = [];
+    private static $plugin = array();
     private static $plugin_path = BASEPATH . DS . 'application' . DS . 'plugin';
 
     public static function initialize():void
