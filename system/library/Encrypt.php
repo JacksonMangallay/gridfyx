@@ -50,22 +50,22 @@ class Encrypt
     private $method = 'AES-256-CBC';
     private $options = 0;
 
-    public function setUsername(String $username):void
+    public function setUsername(String $username)
     {
         $this->username = $username;
     }
 
-    public function setPassword(String $password):void
+    public function setPassword(String $password)
     {
         $this->password = $password;
     }
 
-    public function setMethod(String $method):void
+    public function setMethod(String $method)
     {
         $this->method = $method;
     }
 
-    public function encrypt():string
+    public function encrypt()
     {
 
         if(!$this->validateData())
@@ -77,7 +77,7 @@ class Encrypt
 
     }
 
-    public function decrypt():string
+    public function decrypt()
     {
 
         if(!$this->validateData())
@@ -89,17 +89,17 @@ class Encrypt
 
     }
 
-    private function validateData():bool
+    private function validateData()
     {
         return $this->password !== null ? true:false;
     }
 
-    private function getIV():string
+    private function getIV()
     {
         return chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0) . chr(0x0);
     }
 
-    private function cryptoRandSecure($min, $max):string
+    private function cryptoRandSecure($min, $max)
     {
 
         $range = $max - $min;
@@ -125,7 +125,7 @@ class Encrypt
 
     }
     
-    public function randomString($length):string
+    public function randomString($length)
     {
         $token = "";
         $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

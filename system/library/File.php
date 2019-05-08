@@ -47,7 +47,7 @@ class File
     
     private $file = array();
 
-	public function data($field, $absolute_dir, $relative_dir, $type):string
+	public function data($field, $absolute_dir, $relative_dir, $type)
 	{
 
 		$this->file['type'] = $type;
@@ -100,7 +100,7 @@ class File
 
 	}
 
-	public function location($file_path, $destination_dir, array $allowed_mimes = array()):mixed
+	public function location($file_path, $destination_dir, array $allowed_mimes = array())
 	{
 
 		try{
@@ -161,7 +161,7 @@ class File
 	}
 
 
-	public function extensionToMimeTypeMapping():array
+	public function extensionToMimeTypeMapping()
 	{
 		return [
 	        'ai'=>'application/postscript',
@@ -343,7 +343,7 @@ class File
         ];
 	}
 
-	public function mimeType($file_path):mixed
+	public function mimeType($file_path)
 	{
 		try
 		{

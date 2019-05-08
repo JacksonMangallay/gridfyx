@@ -91,7 +91,7 @@ class XSS
 
     }
 
-    private function removeBadStrings(String $str):string
+    private function removeBadStrings(String $str)
     {
 
         foreach($this->bad_chars as $bad)
@@ -108,7 +108,7 @@ class XSS
 
     }
 
-    private function removeInvisibleChars(String $str):string
+    private function removeInvisibleChars(String $str)
     {
 
         $invisibles = array(

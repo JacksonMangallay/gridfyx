@@ -43,57 +43,57 @@ defined('BASEPATH') OR exit('Direct access is forbidden');
 class Sanitize
 {
 
-    public function email($var):string
+    public function email($var)
     {
         return filter_var($var, FILTER_SANITIZE_EMAIL);
     }
 
-    public function encoded($var):string
+    public function encoded($var)
     {
         return filter_var($var, FILTER_SANITIZE_ENCODED);
     }
 
-    public function magicQuotes($var):string
+    public function magicQuotes($var)
     {
         return filter_var($var, FILTER_SANITIZE_MAGIC_QUOTES);
     }
 
-    public function numberFloat($var):float
+    public function numberFloat($var)
     {
         return filter_var($var, FILTER_SANITIZE_NUMBER_FLOAT);
     }
 
-    public function numberInt($var):int
+    public function numberInt($var)
     {
         return filter_var($var, FILTER_SANITIZE_NUMBER_INT);
     }
 
-    public function specialChars($var):string
+    public function specialChars($var)
     {
         return filter_var($var, FILTER_SANITIZE_SPECIAL_CHARS);
     }
 
-    public function fullSpecialChars($var):string
+    public function fullSpecialChars($var)
     {
         return filter_var($var, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
 
-    public function string($var):string
+    public function string($var)
     {
         return filter_var($var, FILTER_SANITIZE_STRING);
     }
 
-    public function stripped($var):string
+    public function stripped($var)
     {
         return filter_var($var, FILTER_SANITIZE_STRIPPED);
     }
 
-    public function url($var):string
+    public function url($var)
     {
         return filter_var($var, FILTER_SANITIZE_URL);
     }
 
-    public function unsafeRaw($var):string
+    public function unsafeRaw($var)
     {
         return filter_var($var, FILTER_UNSAFE_RAW);
     }

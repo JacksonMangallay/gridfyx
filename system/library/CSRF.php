@@ -44,7 +44,7 @@ class CSRF
 {
 
     //Start CSRF validation
-    public function initialize():void
+    public function initialize()
     {
         $this->setToken();
         $this->setHost();
@@ -52,7 +52,7 @@ class CSRF
     }
 
     //Validate CSRF Session token, host, and agent.
-    public function validate($token, $host, $agent):bool
+    public function validate($token, $host, $agent)
     {
 
         $valid = false;
@@ -67,7 +67,7 @@ class CSRF
     }
 
     //Destroy CSRF data in session
-    public function destroy():void
+    public function destroy()
     {
 
         $_SESSION['csrf_token'] = null;
@@ -81,24 +81,24 @@ class CSRF
     }
 
     //Stores token in session
-    private function setToken():void
+    private function setToken()
     {
         $_SESSION['csrf_token'] = $this->getToken(15);
     }
 
     //Stores host in session
-    private function setHost():void
+    private function setHost()
     {
         $_SESSION['csrf_host'] = $_SERVER['REMOTE_ADDR']?:($_SERVER['HTTP_X_FORWARDED_FOR']?:$_SERVER['HTTP_CLIENT_IP']);;
     }
 
     //Stores user agent in session
-    private function setAgent():void
+    private function setAgent()
     {
         $_SESSION['csrf_agent'] = $_SERVER ['HTTP_USER_AGENT'];
     }
 
-    private function checkToken($token):bool
+    private function checkToken($token)
     {
 
         if($this->isEmpty($_SESSION['csrf_token']) || $this->isEmpty($token))
@@ -110,7 +110,7 @@ class CSRF
 
     }
 
-    private function checkHost($host):bool
+    private function checkHost($host)
     {
 
         if($this->isEmpty($_SESSION['csrf_host']) || $this->isEmpty($host))
@@ -122,7 +122,7 @@ class CSRF
 
     }
 
-    private function checkAgent($agent):bool
+    private function checkAgent($agent)
     {
 
         if($this->isEmpty($_SESSION['csrf_agent']) || $this->isEmpty($agent))
@@ -134,7 +134,7 @@ class CSRF
 
     }
 
-    private function isEmpty($var):bool
+    private function isEmpty($var)
     {
 
         if(!isset($var))
@@ -152,7 +152,7 @@ class CSRF
     }
 
 
-    private function cryptoRandSecure($min, $max):string
+    private function cryptoRandSecure($min, $max)
     {
 
         $range = $max - $min;
@@ -178,7 +178,7 @@ class CSRF
 
     }
     
-    private function getToken($length):string
+    private function getToken($length)
     {
         $token = '';
         $code_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
