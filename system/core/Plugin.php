@@ -46,7 +46,7 @@ class Plugin
 {
     
     private static $plugin = array();
-    private static $plugin_path = BASEPATH . DS . 'application' . DS . 'plugin';
+    private static $plugin_path = BASEPATH . DS . 'application' . DS . 'plugins';
 
     public static function initialize():void
     {
