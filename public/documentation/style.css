@@ -118,6 +118,10 @@ img {
   color: #00B16A;
 }
 
+.content .sections > div h3 {
+  margin-bottom: 20px;
+}
+
 .content .sections > div code {
   padding: 20px;
   background-color: #f8f8f8;

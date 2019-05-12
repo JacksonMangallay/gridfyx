@@ -65,10 +65,10 @@ class Exceptions
 
     public function __construct()
     {
-        $this->display_error = Config::GetDisplayError();
-        $this->log_error = Config::GetLogError();
-        $this->timezone = Config::GetTimezone();
-        $this->date_format = Config::GetDateFormat();
+        $this->display_error = Config::getDisplayError();
+        $this->log_error = Config::getLogError();
+        $this->timezone = Config::getTimezone();
+        $this->date_format = Config::getDateFormat();
     }
 
     public function errorHandler(Int $severity, String $message, String $file, Int $line)
