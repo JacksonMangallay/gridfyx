@@ -44,7 +44,7 @@ use Exception;
 
 function checkVersion()
 {
-    if(version_compare(PHP_VERSION, '7.2') < 0){
+    if(version_compare(PHP_VERSION, '7.0') < 0){
         die('<div style="position: relative; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>Gridfyx PHP Framework<b/> supports PHPv7.2 or newer. Please update your PHP version.</div>');
     }
 }
