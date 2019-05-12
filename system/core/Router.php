@@ -102,7 +102,7 @@ class Router
      * Load a route file.
      * All route files must be loaded at /application/config/routes.php
 	 */
-    public static function load(String $route):void
+    public static function load(String $route)
     {
 
         /** 
@@ -123,7 +123,7 @@ class Router
      * specific controller set, this default
      * controller will be the method's controller.
 	 */
-    public static function setDefaultController(String $controller):void
+    public static function setDefaultController(String $controller)
     {
 
         /**
@@ -143,7 +143,7 @@ class Router
      * System will look for this default method
      * if a method is not set when setting up a router
 	 */
-    public static function setDefaultMethod(String $method):void
+    public static function setDefaultMethod(String $method)
     {
 
         /** 
@@ -163,7 +163,7 @@ class Router
      * This is optional. But once you
      * set, all controllers must use this namespace.
 	 */
-    public static function setNamespace(String $namespace):void
+    public static function setNamespace(String $namespace)
     {
 
         if(!isset($namespace) || empty($namespace))
@@ -178,7 +178,7 @@ class Router
 	/**
      * Set a route with GET method
 	 */
-    public static function get(String $url, Array $args = []):void
+    public static function get(String $url, Array $args = [])
     {
 
         if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'GET')
@@ -227,7 +227,7 @@ class Router
 	/**
      * Set a route with POST method
 	 */
-    public static function post(String $url, Array $args = []):void
+    public static function post(String $url, Array $args = [])
     {
 
         if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== 'POST')
@@ -276,7 +276,7 @@ class Router
 	/**
      * Run the router. Initiated at Bootstrap.php
 	 */
-    public static function run():void
+    public static function run()
     {
 
         /**
@@ -384,7 +384,7 @@ class Router
              * Ex: If parameter is set as :string,
              * then the parameters must be strings
              * 
-             * If parameters and and regex doesn't match,
+             * If parameters and regex doesn't match,
              * exit current loop process and check the
              * next route
              */
@@ -464,7 +464,7 @@ class Router
      * If no controller/method/parameters are set,
      * set everything to default controller, method, parameters
      */
-    private static function manageRoute(Array $route, String $route_str):void
+    private static function manageRoute(Array $route, String $route_str)
     {
         /** 
          * Set controller to the route controller
@@ -510,7 +510,7 @@ class Router
     /** 
      * Serve the requested content
      */
-    private static function dispatch():void
+    private static function dispatch()
     {
         /** 
          * Controller file found at /application/controllers
@@ -536,7 +536,7 @@ class Router
 
     }
 
-    private static function isDefaultControllerSet():bool
+    private static function isDefaultControllerSet()
     {
             
         if(!isset(self::$controller) || empty(self::$controller))
@@ -548,7 +548,7 @@ class Router
 
     }
 
-    private static function isDefaultMethodSet():bool
+    private static function isDefaultMethodSet()
     {
             
         if(!isset(self::$method) || empty(self::$method))
@@ -563,7 +563,7 @@ class Router
     /** 
      * Remove all dashes
      */
-    private static function translateUrlDashes(String $uri):string
+    private static function translateUrlDashes(String $uri)
     {
 
         $uri = explode('-', $uri);
@@ -577,7 +577,7 @@ class Router
     /** 
      * Replace regex in the route with the parameters set in the current uri
      */
-    private static function replaceRegex(Array $route, Array $uri, Array $params):array
+    private static function replaceRegex(Array $route, Array $uri, Array $params)
     {
 
         foreach($params as $key => $value)
@@ -593,7 +593,7 @@ class Router
     /** 
      * Check if regex matches the parameters
      */ 
-    private static function matchRegex(Array $uri, Array $params):bool
+    private static function matchRegex(Array $uri, Array $params)
     {
 
         foreach($params as $key => $value)
@@ -615,7 +615,7 @@ class Router
      * with the regex array
      * Ex: /requested/url/:string => /requested/url/^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$
      */
-    private static function filterWildcard(String $url):string
+    private static function filterWildcard(String $url)
     {
         return str_replace(self::$wildcards, self::$regex, $url);
     }
@@ -623,7 +623,7 @@ class Router
     /**
      * Fetch current request uri
      */
-    private static function getUri():string
+    private static function getUri()
     {
 
         if(!isset($_GET['uri']))
@@ -638,7 +638,7 @@ class Router
     /**
      * Transform uri into an array
      */
-    private static function parse(String $str):array
+    private static function parse(String $str)
     {
 
         $str = explode('/',$str);

@@ -50,58 +50,58 @@ class Config
 
     protected static $error_pages_path;
 
-    public static function initialize():void
+    public static function initialize()
     {
         load_config('config');
         load_config('functions');
     }
 
-    public static function setDisplayError(Bool $display):void
+    public static function setDisplayError(Bool $display)
     {
         self::$display_error = $display;
     }
 
-    public static function getDisplayError():bool
+    public static function getDisplayError()
     {
         return self::$display_error;
     }
 
-    public static function setLogError(Bool $log):void
+    public static function setLogError(Bool $log)
     {
         self::$log_error = $log;
     }
 
-    public static function getLogError():bool
+    public static function getLogError()
     {
         return self::$log_error;
     }
 
-    public static function setTimezone(String $timezone):void
+    public static function setTimezone(String $timezone)
     {
         self::$timezone = $timezone;
     }
 
-    public static function getTimezone():string
+    public static function getTimezone()
     {
         return self::$timezone;
     }
 
-    public static function setDateFormat(String $date_format):void
+    public static function setDateFormat(String $date_format)
     {
         self::$date_format = $date_format;
     }
 
-    public static function getDateFormat():string
+    public static function getDateFormat()
     {
         return self::$date_format;
     }
 
-    public static function setErrorPagesPath(String $error_pages_path = ''):void
+    public static function setErrorPagesPath(String $error_pages_path = '')
     {
         self::$error_pages_path = $error_pages_path;
     }
 
-    public static function getErrorPagesPath():string
+    public static function getErrorPagesPath()
     {
         return self::$error_pages_path;
     }

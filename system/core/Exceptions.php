@@ -71,12 +71,12 @@ class Exceptions
         $this->date_format = Config::GetDateFormat();
     }
 
-    public function errorHandler(Int $severity, String $message, String $file, Int $line):void
+    public function errorHandler(Int $severity, String $message, String $file, Int $line)
     {
         $this->handle($severity,$message,$file,$line);
     }
 
-    private function handle(Int $severity, String $message, String $file, Int $line):void
+    private function handle(Int $severity, String $message, String $file, Int $line)
     {
         date_default_timezone_set($this->timezone);
 
@@ -95,7 +95,7 @@ class Exceptions
         }
     }
 
-    private function writeLog(String $message):void
+    private function writeLog(String $message)
     {
         $error_log_file = DATA . DS . 'logs' . DS . 'errors.txt';
 
@@ -115,7 +115,7 @@ class Exceptions
         fclose($fp);
     }
 
-    private function displayLog(String $message):void
+    private function displayLog(String $message)
     {
         $error = '<div style="position: relative; z-index: 999; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
         $error .= $message;

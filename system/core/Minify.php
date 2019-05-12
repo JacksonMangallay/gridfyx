@@ -49,17 +49,17 @@ class Minify
 
     protected static $minify;
 
-    public static function initialize():void
+    public static function initialize()
     {
         load_config('minify');
     }
 
-    public static function run($run = FALSE):void
+    public static function run($run = FALSE)
     {
         self::$minify = $run;
     }
 
-    public static function css(Array $styles, String $minified_filename):bool
+    public static function css(Array $styles, String $minified_filename)
     {
 
         if(!is_array($styles))
@@ -95,7 +95,7 @@ class Minify
 
     } 
 
-    public static function js(Array $scripts, String $minified_filename):bool
+    public static function js(Array $scripts, String $minified_filename)
     {
 
         if(!is_array($scripts))

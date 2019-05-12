@@ -49,7 +49,7 @@ function checkVersion()
     }
 }
 
-function load_third_party(String $third_party):void
+function load_third_party(String $third_party)
 {
 
     $third_party_index = SYSTEM . DS . 'core' . DS . 'third-party' . DS . $third_party . DS . 'index.php';
@@ -63,7 +63,7 @@ function load_third_party(String $third_party):void
 
 }
 
-function load_config(String $config):void
+function load_config(String $config)
 {
 
     $config_file = APPLICATION . DS . 'config' . DS . $config . '.php';
@@ -77,19 +77,19 @@ function load_config(String $config):void
 
 }
 
-function error_handler(Int $severity,String $message,String $file,Int $line):void
+function error_handler(Int $severity,String $message,String $file,Int $line)
 {
     $e = new Exceptions();
     $e->errorHandler($severity, $message, $file, $line);
 }
 
-function exception_handler($error):void
+function exception_handler($error)
 {
     $e = new Exceptions();
     $e->errorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
 }
 
-function shutdown_handler():void
+function shutdown_handler()
 {
 
     $e = new Exceptions();
@@ -101,7 +101,7 @@ function shutdown_handler():void
 
 }
 
-function http_response(Int $code = 200):void
+function http_response(Int $code = 200)
 {
 
     $file = APPLICATION . DS . 'views' . DS . Config::getErrorPagesPath() . DS . $code . '.php';
@@ -166,7 +166,7 @@ function http_response(Int $code = 200):void
     exit;
 }
 
-function base_url():string
+function base_url()
 {
 
     if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST']))
@@ -182,7 +182,7 @@ function base_url():string
 
 }
 
-function is_https():bool
+function is_https()
 {
 
     if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')

@@ -44,21 +44,17 @@ use Exception;
 
 class Autoload
 {
-
-    /** 
-     * Directories loaded by default
-     */
-    private static $directories = array(
+	/**
+	 * Store all routes
+	 */
+    private static $directories = [
         'system/core',
         'system/library'
-    );
+    ];
 
     private static $directory;
 
-    /** 
-     * Add directory to be loaded
-     */
-    public static function addDirectory(String $directory):void
+    public static function addDirectory(String $directory)
     {
 
         if(strpos($directory, 'system') !== false)
@@ -70,15 +66,14 @@ class Autoload
     
     }
 
-    /** 
-     * Run autoloader
-     */
-    public static function initialize():void
+    /*
+    *---------------------------------------------------------------
+    * Load autoload.php and load classes inside set folders
+    *---------------------------------------------------------------
+    */
+    public static function initialize()
     {
 
-        /** 
-         * Load folders set at /application/config/autoload.php
-         */
         load_config('autoload');
 
         spl_autoload_register(function(String $class)
@@ -102,7 +97,7 @@ class Autoload
 
     } 
 
-    private static function getRealPath(String $path, String $class):string
+    private static function getRealPath(String $path, String $class)
     {        
         
         $arr_path = explode('/', $path);

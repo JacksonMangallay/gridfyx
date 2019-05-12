@@ -47,17 +47,17 @@ class DB
 
     private static $db_groups = array();
 
-    public static function initialize():void
+    public static function initialize()
     {
         load_config('database');
     }
 
-    public static function createGroup(String $name, Array $group):void
+    public static function createGroup(String $name, Array $group)
     {
         self::$db_groups[$name] = $group;
     }
 
-    public static function fetchGroup(String $name):array
+    public static function fetchGroup(String $name)
     {
     
         if(!array_key_exists($name, self::$db_groups))

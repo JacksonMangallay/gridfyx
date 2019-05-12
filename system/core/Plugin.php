@@ -48,7 +48,7 @@ class Plugin
     private static $plugin = array();
     private static $plugin_path = BASEPATH . DS . 'application' . DS . 'plugins';
 
-    public static function initialize():void
+    public static function initialize()
     {
 
         load_config('plugins');
@@ -60,7 +60,7 @@ class Plugin
 
     }
 
-    public static function extend(String $plugin):void
+    public static function extend(String $plugin)
     {
 
         $plugin_index = self::$plugin_path . DS . $plugin . DS . 'index.php';
