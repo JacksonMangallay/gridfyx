@@ -1,0 +1,4 @@
+[2019-06-13] [Notice] Undefined variable: we - W:\gridfyx\application\config\functions.php --> Line 11
+[2019-06-13] [Notice] Undefined variable: we - W:\gridfyx\application\config\functions.php --> Line 11
+[2019-06-13] [Notice] Undefined variable: we - W:\gridfyx\application\config\functions.php --> Line 11
+[2019-06-13] [Notice] Undefined variable: we - W:\gridfyx\application\config\functions.php --> Line 11
