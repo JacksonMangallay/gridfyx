@@ -1,1 +1,0 @@
-[2019-06-13] [Error] syntax error, unexpected end of file, expecting ',' or ';' - W:\gridfyx\application\config\functions.php --> Line 11
