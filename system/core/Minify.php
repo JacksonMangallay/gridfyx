@@ -111,9 +111,6 @@ class Minify
             $js .= $file;
         }
 
-        /*Remove comments*/
-        $js = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $js);
-
         /*Minify all loaded JS*/
         $minifier = new \MatthiasMullie\Minify\JS($js);
 
