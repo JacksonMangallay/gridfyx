@@ -70,7 +70,7 @@ class Minify
         /*Disable minify*/
         if(self::$enabled === FALSE)
         {
-            return;
+            return FALSE;
         }
 
         $css = '';
@@ -106,7 +106,7 @@ class Minify
         /*Disable minify*/
         if(self::$enabled === FALSE)
         {
-            return;
+            return FALSE;
         }
 
         $js = '';
