@@ -47,12 +47,19 @@ use Exception;
 class Minify
 {
 
+    private static $enabled = TRUE;
+
     public static function initialize()
     {
         load_config('minify');
     }
 
-    public static function css(Array $styles, String $minified_filename, Bool $minify)
+    public static function enable(Bool $minify = TRUE)
+    {
+        self::$enabled = $minify;
+    }
+
+    public static function css(Array $styles, String $minified_filename)
     {
 
         if(!is_array($styles))
@@ -61,7 +68,7 @@ class Minify
         }
 
         /*Disable minify*/
-        if($minify === FALSE)
+        if(self::$enabled === FALSE)
         {
             return;
         }
@@ -88,7 +95,7 @@ class Minify
 
     } 
 
-    public static function js(Array $scripts, String $minified_filename, Bool $minify)
+    public static function js(Array $scripts, String $minified_filename)
     {
 
         if(!is_array($scripts))
@@ -97,7 +104,7 @@ class Minify
         }
 
         /*Disable minify*/
-        if($minify === FALSE)
+        if(self::$enabled === FALSE)
         {
             return;
         }

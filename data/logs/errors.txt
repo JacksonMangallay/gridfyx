@@ -1,0 +1,1 @@
+[2019-07-05] [Error] Access to undeclared static property: System\Core\Minify::$enabled - W:\gridfyx\system\core\Minify.php --> Line 59
