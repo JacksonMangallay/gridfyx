@@ -18,8 +18,8 @@ define('AUTH_SECRET_KEY', 'N+@17-Q#bDtCAeV+HQ)8~f-qk`}z^_RCzK6dHI]|elI~fv7Ai$/KF
  * DEVELOPMENT ENVIRONMENT
  *---------------------------------------------------------------
  */
-Config::setDisplayError(true);
-Config::setLogError(true);
+Config::setDisplayError(TRUE);
+Config::setLogError(TRUE);
 Config::setTimezone('Asia/Manila');
 Config::setDateFormat('Y-m-d');
 
