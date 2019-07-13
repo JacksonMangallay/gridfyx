@@ -22,11 +22,17 @@ class Loader{
             http_response(404);
         }
 
-        ob_start();
-        include($file);
-        $content = ob_get_contents();
-        ob_end_clean();
-        print_r($content);        
+        /**Enable gzip */
+        if(substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'))
+        {
+            ob_start('ob_gzhandler');
+            include($file);
+            ob_end_flush();   
+        }
+        else
+        {
+            include($file);
+        }
 
     }
 
