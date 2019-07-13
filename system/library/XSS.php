@@ -44,7 +44,7 @@ class XSS
 {
 
     private $bad_chars = array(
-        '&', '&amp;', 'amp', '<', '&lt;',
+        '&', '&amp;', '<', '&lt;',
         'lt;', '>', '&gt;', 'gt;', '"',
         '&quot;', 'quot;', "'", '&#x27;',
         '#x27;', '/', '&#x2F;', '#x2F;'
