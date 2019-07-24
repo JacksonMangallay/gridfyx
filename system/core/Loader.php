@@ -22,18 +22,33 @@ class Loader{
             http_response(404);
         }
 
-        /**Enable gzip */
-        if(substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip'))
-        {
-            ob_start('ob_gzhandler');
-            include($file);
-            ob_end_flush();   
-        }
-        else
-        {
-            include($file);
-        }
+        ob_start();
+        include($file);
+        $content = ob_get_contents();
+        $content = $this->minifyOutput($content);
+        ob_end_clean();
+        print_r($content);
 
     }
 
+    private function minifyOutput($content)
+    {
+        $search = array(
+            '/(\n|^)(\x20+|\t)/',
+            '/(\n|^)\/\/(.*?)(\n|$)/',
+            '/\n/',
+            '/\<\!--.*?-->/',
+            '/(\x20+|\t)/',
+            '/\>\s+\</',
+            '/(\"|\')\s+\>/',
+            '/=\s+(\"|\')/'
+        );
+        $replace = array(
+            "\n","\n"," ",
+            ""," ","><","$1>",
+            "=$1"
+        );
+        return preg_replace($search,$replace,$content);
+    }
+    
 }
