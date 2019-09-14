@@ -60,8 +60,8 @@ final class XSS extends Utils{
         if(is_array($str)){
 
             foreach(array_keys($str) as $key){
-                $str[$key] = $this->remove_bad_strings($str[$key]);
-                $str[$key] = $this->remove_invisible_chars($str[$key]);
+                $str[$key] = self::utils()->remove_bad_strings($str[$key]);
+                $str[$key] = self::utils()->remove_invisible_chars($str[$key]);
                 $str[$key] = htmlspecialchars($str[$key], ENT_QUOTES, 'UTF-8', true);
             }
 
@@ -69,8 +69,8 @@ final class XSS extends Utils{
 
         }else{
 
-            $str = $this->remove_bad_strings($str);
-            $str = $this->remove_invisible_chars($str);
+            $str = self::utils()->remove_bad_strings($str);
+            $str = self::utils()->remove_invisible_chars($str);
             $str = htmlspecialchars($str, ENT_QUOTES, 'UTF-8', true);
             return $str;
             
