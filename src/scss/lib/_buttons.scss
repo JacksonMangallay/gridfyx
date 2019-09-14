@@ -1,0 +1,51 @@
+@import './variables';
+@import './mixins/mixin-buttons';
+
+.btn-submit{
+    i{
+        transform: rotate(45deg);
+    }
+}
+
+.btn-default{
+    @include button(#e7e7e7, #999);
+}
+
+.btn-primary{
+    @include button($green, #fff);
+    &.btn-rev{
+        color: $green;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+.btn-danger{
+    @include button($red, #fff);
+    &.btn-rev{
+        color: $red;
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+.btn-md{
+    @include button-size(130px, 40px, 1.6, 0.9rem);  
+}
+
+.btn-lg{
+    @include button-size(180px, 50px, 2.2, 1rem);
+}
+
+.btn-shadow{
+    @include box-shadow(0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12));
+}
+
+.btn-fw{
+    width: 100%;
+}
+
+button:disabled,
+button[disabled]{
+    opacity: .5;
+}

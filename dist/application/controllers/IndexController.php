@@ -10,13 +10,7 @@ use System\Library\File;
 class IndexController extends Controller{
 
     public function index(){
-
-        $params = array(
-            'title' => 'Gridfyx Node Environment'
-        );
-
-        $this->view->render('pages/index', $params);
-
+        $this->view->render('pages/index');
     }
     
 }

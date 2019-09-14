@@ -1,0 +1,11 @@
+@import './lib/variables';
+
+body{
+    
+    overflow-y: auto;
+
+    &.loading{
+        overflow-y: hidden;
+    }
+
+}

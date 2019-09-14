@@ -1,0 +1,143 @@
+$primaryColor: #00B16A;
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+div,header,aside,article,
+section,footer,nav,figure,
+code{
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,body{
+    font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #304455;
+    background-color: #fff;
+    margin: 0;
+}
+
+h1,h2,h3,
+h4,h5,h6{
+    color: #222;
+}
+
+p{
+    line-height: 24px;
+    margin-bottom: 20px;
+}
+
+img{
+    vertical-align: middle;
+    border-style: none;
+}
+
+.img-fluid{
+    max-width: 100%;
+    height: auto;
+}
+
+.docs{
+    height: 100vh;
+}
+
+.sidebar{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    padding: 10px 20px;
+    border-right: 1px solid #d1d1d1;
+
+    h2{
+        margin-bottom: 10px;
+    }
+
+    ul{
+        list-style: none;
+
+        li{
+            margin-bottom: 5px;
+
+            a{
+                color: inherit;
+                text-decoration: none;
+            
+                &.active,&:hover{
+                    color: $primaryColor;
+                }
+            
+            }
+        }
+    }
+}
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 300px;
+    padding-bottom: 50px;
+    overflow-y: auto;
+
+    .sections{
+        width: 90%;
+
+        > div{
+            padding-top: 50px;
+            padding-bottom: 50px;
+            border-bottom: 1px solid #eaeaea;
+
+            ul{
+                list-style: none;
+                margin-bottom: 20px;
+            }
+
+            a{
+                color: $primaryColor; 
+            }
+
+            h1{
+                margin-bottom: 20px; 
+                span{
+                    color: $primaryColor;
+                }
+            }
+
+            h3{
+                margin-bottom: 20px;
+            }
+
+            code{
+                padding: 20px;
+                background-color: #f8f8f8;
+            }
+        }
+    }
+}
+
+.notice{
+    border-left: 5px solid #f66;
+    background-color: #e7ecf3;
+    color: #486491;
+    padding: 20px;
+
+    em{
+        font-weight: bold;
+        font-style: normal;
+        color: #f66;
+    }
+
+}
+
+em{
+    font-weight: bold;
+    font-style: normal;
+    color: $primaryColor;
+}

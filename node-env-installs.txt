@@ -1,0 +1,32 @@
+##### Dev Dependencies (--save-dev)
+
+---Webpack
+webpack
+webpack-cli
+
+---Babel
+@babel/core
+@babel/preset-env
+@babel/register
+babel-loader
+babel-minify-webpack-plugin
+
+---Polyfill
+regenerator-runtime
+
+---Loaders
+css-loader
+sass-loader
+node-sass
+file-loader
+
+---Extras
+mini-css-extract-plugin
+optimize-css-assets-webpack-plugin
+
+##### Optionals (--save)
+
+vue
+bootstrap
+axios
+@fortawesome/fontawesome-free
