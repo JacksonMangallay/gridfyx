@@ -1,9 +1,0 @@
-<IfModule mod_rewrite.c>
-	Options -Indexes
-	Options -MultiViews
-	RewriteEngine On
-	RewriteCond	%{REQUEST_FILENAME} !-f
-	RewriteCond	%{REQUEST_FILENAME}	!-d
-	RewriteCond	%{REQUEST_FILENAME}	!-l
-	RewriteRule	^(.+)$ index.php?uri=$1 [QSA,L,NC]
-</IfModule>
