@@ -2,25 +2,11 @@
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-use System\Core\Minify;
+//Turn minification on/off
+Minify::enable(false);
 
-/*
- *---------------------------------------------------------------
- * ENABLE/DISABLED MINIFY
- *---------------------------------------------------------------
- */
-Minify::enable(FALSE);
-
-/*
- *---------------------------------------------------------------
- * MINIFY CSS
- *---------------------------------------------------------------
- */
+//Stylesheets to minify
 Minify::css(array(), '');
 
-/*
- *---------------------------------------------------------------
- * MINIFY JS
- *---------------------------------------------------------------
- */
-Minify::js(array(), '');
+//Scripts to minify
+Minify::JS(array(), '');

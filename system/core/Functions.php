@@ -33,176 +33,296 @@
  * @author	Jackson Mangallay
  * @license	MIT License
  * @link	https://github.com/JacksonMangallay/gridfyx
- * @since	Version 1.0.0
+ * @since	Version 2.0.0
  *
  */
-namespace System\Core;
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-use Exception;
+if(!function_exists('check_version')){
 
-function checkVersion()
-{
-    if(version_compare(PHP_VERSION, '7.0') < 0){
-        die('<div style="position: relative; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>Gridfyx PHP Framework<b/> supports PHPv7.2 or newer. Please update your PHP version.</div>');
-    }
-}
-
-function load_third_party(String $third_party)
-{
-
-    $third_party_index = SYSTEM . DS . 'core' . DS . 'third-party' . DS . $third_party . DS . 'index.php';
-
-    if(!file_exists($third_party_index))
-    {
-        throw new Exception('Unable to load third-party plugin ' . $third_party . '!');
-    }
-
-    require_once($third_party_index);
-
-}
-
-function load_config(String $config)
-{
-
-    $config_file = APPLICATION . DS . 'config' . DS . $config . '.php';
-
-    if(!file_exists($config_file))
-    {
-        throw new Exception('Unable to load configuration file ' . $config . '!');
-    }
-
-    require_once($config_file);
-
-}
-
-function error_handler(Int $severity,String $message,String $file,Int $line)
-{
-    $e = new Exceptions();
-    $e->errorHandler($severity, $message, $file, $line);
-}
-
-function exception_handler($error)
-{
-    $e = new Exceptions();
-    $e->errorHandler(E_ERROR, $error->getMessage(), $error->getFile(), $error->getLine());
-}
-
-function shutdown_handler()
-{
-
-    $e = new Exceptions();
-    $error = error_get_last();
-
-    if(isset($error) && ($error['type'] & (E_ERROR | E_PARSE | E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_COMPILE_WARNING))){
-        $e->errorHandler($error['type'], $error['message'], $error['file'], $error['line']);
+    //System requires PHP version 7.0 or newer
+    function check_version(){
+        if(version_compare(PHP_VERSION, '7.0') < 0){
+            display_log('<b>Gridfyx PHP Framework</b> supports PHPv7.0 or newer. Please update your PHP version!');
+        }
     }
 
 }
 
-function http_response(Int $code = 200)
-{
+if(!function_exists('display_log')){
 
-    $file = APPLICATION . DS . 'views' . DS . Config::getErrorPagesPath() . DS . $code . '.php';
+	/**
+	 * 
+	 * @param string $filename
+     * 
+     */
+    function display_log($message = ''){
 
-    $response = array(
-        100	=> 'Continue',
-        101	=> 'Switching Protocols',
-        200	=> 'OK',
-        201	=> 'Created',
-        202	=> 'Accepted',
-        203	=> 'Non-Authoritative Information',
-        204	=> 'No Content',
-        205	=> 'Reset Content',
-        206	=> 'Partial Content',
-        300	=> 'Multiple Choices',
-        301	=> 'Moved Permanently',
-        302	=> 'Found',
-        303	=> 'See Other',
-        304	=> 'Not Modified',
-        305	=> 'Use Proxy',
-        307	=> 'Temporary Redirect',
-        400	=> 'Bad Request',
-        401	=> 'Unauthorized',
-        402	=> 'Payment Required',
-        403	=> 'Forbidden',
-        404	=> 'Not Found',
-        405	=> 'Method Not Allowed',
-        406	=> 'Not Acceptable',
-        407	=> 'Proxy Authentication Required',
-        408	=> 'Request Timeout',
-        409	=> 'Conflict',
-        410	=> 'Gone',
-        411	=> 'Length Required',
-        412	=> 'Precondition Failed',
-        413	=> 'Request Entity Too Large',
-        414	=> 'Request-URI Too Long',
-        415	=> 'Unsupported Media Type',
-        416	=> 'Requested Range Not Satisfiable',
-        417	=> 'Expectation Failed',
-        422	=> 'Unprocessable Entity',
-        426	=> 'Upgrade Required',
-        428	=> 'Precondition Required',
-        429	=> 'Too Many Requests',
-        431	=> 'Request Header Fields Too Large',
-        500	=> 'Internal Server Error',
-        501	=> 'Not Implemented',
-        502	=> 'Bad Gateway',
-        503	=> 'Service Unavailable',
-        504	=> 'Gateway Timeout',
-        505	=> 'HTTP Version Not Supported',
-        511	=> 'Network Authentication Required'
-    );
+        if(is_empty($message)){
+            return false;
+        }
 
-    header('HTTP/1.1 ' . $code . ' ' . $response[$code] . '.');
-
-    if(!file_exists($file))
-    {
-        exit('<div style="position: relative; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;"><b>' . $code . '</b> - ' . $response[$code] . '</div>');
+        echo('<div style="position: relative; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; z-index: 999; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">' . $message . '</div>');
     }
-
-    require($file);
-    exit;
-}
-
-function base_url()
-{
-
-    if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST']))
-    {
-        $baseUrl = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'] . substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
-    }
-    else
-    {
-        $baseUrl = 'http://127.0.0.1/';
-    }
-
-    return dirname($baseUrl);
 
 }
 
-function is_https()
-{
+if(!function_exists('write_log')){
 
-    if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
-    {
-        return true;
-    }
-    elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
-    {
-        return true;
-    }
-    elseif(!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off')
-    {
-        return true;
-    }
+	/**
+	 * 
+     * @param string $message
+     * @param string $type
+     * 
+     */
+    function write_log($message = '', $type = 'error'){
 
-    return false;
+        if(is_empty($message)){
+            return false;
+        }
+
+        if($type === 'system'){
+            $message = '[' . date('Y-m-d') . '][System] ' . $message;
+        }
+
+        $logfile = DIR_LOGS . '/' . $type . '.log'; 
+        $fp = fopen($logfile, 'ab');
+
+        if(flock($fp, LOCK_EX)){
+            fwrite($fp, $message . "\n");
+            fflush($fp);
+            flock($fp, LOCK_UN);
+        }else{
+            display_log('Unable to write at log file ' . $type . '!');
+        }
+        
+        fclose($fp);
+
+    }
 
 }
 
-function redirect($location = '/')
-{
-    header('Location: ' . BASE_URL . $location);
+if(!function_exists('is_empty')){
+
+	/**
+	 * 
+     * @param string $var
+     * 
+     * @return bool
+     */
+    function is_empty($var = ''){
+
+        if(!isset($var) || empty($var) || is_null($var)){
+            return true;
+        }
+    
+        return false;
+    
+    }
+
+}
+
+if(!function_exists('not_found')){
+
+    function not_found($page = '404'){
+
+        $file = DIR_VIEWS . '/' . $page . '.php';
+
+        if(file_exists($file)){
+            include($file);
+            exit;
+        }
+
+        display_log('404 - Page not found!');
+        exit;
+    }
+
+}
+
+if(!function_exists('base_url')){
+
+	/**
+	 * 
+     * @return string
+     */
+    function base_url(){
+    
+        if(isset($_SERVER['HTTP_HOST']) && preg_match('/^((\[[0-9a-f:]+\])|(\d{1,3}(\.\d{1,3}){3})|[a-z0-9\-\.]+)(:\d+)?$/i', $_SERVER['HTTP_HOST'])){
+            $base_url = (is_https() ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'] . substr($_SERVER['SCRIPT_NAME'], 0, strpos($_SERVER['SCRIPT_NAME'], basename($_SERVER['SCRIPT_FILENAME'])));
+        }else{
+            $base_url = 'http://localhost/';
+        }
+    
+        return dirname($base_url);
+    
+    }
+
+}
+
+if(!function_exists('is_https')){
+
+	/**
+	 * 
+     * @return bool
+     */
+    function is_https(){
+    
+        if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off'){
+            return true;
+        }elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https'){
+            return true;
+        }elseif(!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off'){
+            return true;
+        }
+    
+        return false;
+    
+    }
+
+}
+
+if(!function_exists('redirect')){
+
+    function redirect($to = '/'){
+        header('Location: ' . base_url() . $to);
+    }
+
+}
+
+if(!function_exists('url')){
+
+	/**
+	 * 
+     * @return bool
+     */
+    function url($url = ''){
+
+        if(is_empty($url)){
+            return false;
+        }
+
+        echo base_url() . $url;
+
+    }
+
+}
+
+if(!function_exists('is_url')){
+
+	/**
+	 * 
+     * @param string $url
+     * 
+     * @return bool
+     */
+    function is_url($url = ''){
+
+        if(is_empty($url)){
+            return false;
+        }
+
+        $url = filter_var($url, FILTER_SANITIZE_STRING);
+        $url = filter_var($url, FILTER_SANITIZE_URL);
+        $has_protocol = false;
+
+        $allowed_protocols = array('http', 'https', 'sftp', 'ftp');
+
+        //Check if a protocol is present in the string
+        foreach($allowed_protocols as $key){
+            if(strpos($url, $key) === 0){
+                $has_protocol = true;
+                break;
+            }else{
+                $has_protocol = false;
+            }
+        }
+
+        /**
+         * If string has protocol, check if protocol is not repeated.
+         * Ex: http://http://www.website.com will return false
+         * 
+         * If no protocol found, add default protocol (http://)
+         */
+        if($has_protocol){
+
+            $url_array = explode('://', $url);
+
+            if(count($url_array) > 2){
+                return false;
+            }
+
+        }else{
+            $url = 'http://' . $url;
+        }
+
+        return filter_var($url, FILTER_VALIDATE_URL);
+
+    }
+
+}
+
+if(!function_exists('is_equal')){
+
+	/**
+	 * 
+     * @param string $var1
+     * @param string $var2
+     * 
+     * @return bool
+     */
+    function is_equal($var1 = '', $var2 = ''){
+
+        if(is_empty($var1) || is_empty($var2)){
+            return false;
+        }
+
+        if(is_array($var1) || is_array($var2)){
+
+            if(!is_array($var1) || !is_array($var2)){
+                return false;
+            }
+
+            if(count($var1) !== count($var2)){
+                return false;
+            }
+
+            $result = array_intersect($var1, $var2);
+
+            return (int)count($result) === (int)count($var1) ? true : false;
+
+        }
+
+        return $var1 === $var2 ? true : false;
+
+    }
+
+}
+
+if(!function_exists('plugin')){
+
+	/**
+	 * 
+     * @param string $dir
+     * 
+     * @return void
+     */
+    function plugin($dir = ''){
+
+        $plugin = DIR_PLUGINS . '/' . $dir;
+
+        if(!is_dir($plugin)){
+            throw new Exception('Plugin ' . $dir . ' does not exist!');
+        }
+
+        $file = DIR_PLUGINS . '/' . $dir . '/index.php';
+
+        if(!file_exists($file)){
+            throw new Exception('Plugin unavailable!');
+        }
+
+        require_once($file);
+
+    }
+
 }

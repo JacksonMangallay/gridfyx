@@ -33,77 +33,82 @@
  * @author	Jackson Mangallay
  * @license	MIT License
  * @link	https://github.com/JacksonMangallay/gridfyx
- * @since	Version 1.0.0
+ * @since	Version 2.0.0
  *
  */
+
 namespace System\Core;
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-class Config
-{
+class Config{
 
-    protected static $display_error = false;
-    protected static $log_error = true;
-    protected static $timezone = 'Asia/Manila';
-    protected static $date_format = 'Y-m-d H:i:s';
+    private static $instance = null;
+    private $data = array();
+    protected $config = null;
 
-    protected static $error_pages_path;
-
-    public static function initialize()
-    {
-        load_config('config');
-        load_config('functions');
+    public function __construct(){
+        self::$instance = $this;
+        self::config()->load('functions');
     }
 
-    public static function setDisplayError(Bool $display)
-    {
-        self::$display_error = $display;
+	public static function config(){
+		return self::$instance;
+	}
+
+	/**
+	 * 
+	 * @param string $filename
+     * 
+     */
+    final public function load($filename = ''){
+
+        if(is_empty($filename)){
+            return false;
+        }
+
+        $file = DIR_CONFIG . '/' . $filename . '.php';
+
+        if(!file_exists($file)){
+            display_log('Error: Unable to load config file ' . $filename . '!');
+        }
+
+        require_once($file);
+
+        //Set config variable if variable is available
+        if(isset($config[$filename])){
+            $this->set($filename, $config[$filename]);
+        }
+
     }
 
-    public static function getDisplayError()
-    {
-        return self::$display_error;
+	/**
+	 * 
+     * @param string $key
+     * 
+     */
+    final public function get($key = ''){
+
+        if(is_empty($key)){
+            return false;
+        }
+
+        return $this->data[$key];
     }
 
-    public static function setLogError(Bool $log)
-    {
-        self::$log_error = $log;
-    }
+	/**
+	 * 
+     * @param string $key
+     * @param mixed $value
+     * 
+     */
+     private function set($key = '', $value = ''){
 
-    public static function getLogError()
-    {
-        return self::$log_error;
-    }
+        if(is_empty($key) || is_empty($value)){
+            return false;
+        }
 
-    public static function setTimezone(String $timezone)
-    {
-        self::$timezone = $timezone;
-    }
-
-    public static function getTimezone()
-    {
-        return self::$timezone;
-    }
-
-    public static function setDateFormat(String $date_format)
-    {
-        self::$date_format = $date_format;
-    }
-
-    public static function getDateFormat()
-    {
-        return self::$date_format;
-    }
-
-    public static function setErrorPagesPath(String $error_pages_path = '')
-    {
-        self::$error_pages_path = $error_pages_path;
-    }
-
-    public static function getErrorPagesPath()
-    {
-        return self::$error_pages_path;
+        $this->data[$key] = $value;
     }
 
 }

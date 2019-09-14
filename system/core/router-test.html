@@ -1,0 +1,117 @@
+<?php declare(strict_types = 1);
+
+namespace System\Core;
+
+defined('BASEPATH') OR exit('Direct access is forbidden');
+
+use Exception;
+
+final class Router{
+
+    private $routes = null;
+    private $controller = null;
+    private $method = null;
+    private $params = array();
+    private $param_types = array(':string', ':int', ':any');
+    private $param_regex = array(
+        '^[a-zA-Z]+[a-zA-Z0-9-_ ]*[a-zA-Z0-9]$',
+        '[1-9][0-9]*',
+        '^[a-zA-Z0-9][\s\S]*$'
+    );
+
+    public function __construct(){
+        $this->run();
+    }
+
+    private function run(){
+
+        $this->routes = $this->fetchRoutes($_SERVER['REQUEST_METHOD']);
+        $request = $this->fetchUri();
+
+        if(!array_key_exists($request, $this->routes)){
+            exit('Page not found');
+        }
+
+        $this->manageRoute($this->routes[$request]);
+
+        $route = $this->routes[$request];
+        print_r($route);
+        print_r($request);
+        /*
+        $route = $this->parseUri($request);
+
+        print_r($request . '<br>');
+        print_r($this->routes);
+        */
+
+    }
+
+	/**
+	 * 
+     * @param array $route
+     * @param string $request
+     * 
+     */
+    private function manageRoute($route){
+        
+        $this->controller = $route['controller'];
+        $this->method = $route['method'];
+        $this->params = $route['params'];
+
+    }
+
+	/**
+	 * 
+     * @param string $request_type
+     * 
+     * @return array
+     */
+    private function fetchRoutes($request_type = 'get'){
+
+        $request_type = strtolower($request_type);
+
+        foreach(glob(DIR_ROUTES . '/route_*.php') as $file){
+            include($file);
+        }
+
+        $array = array(
+            'get' => array(),
+            'post' => array()
+        );
+
+        foreach($routes as $key => $value){
+            $key = strtolower($key);
+            $array[$key] = $value;
+        }
+
+        return $array[$request_type];
+
+    }
+
+	/**
+     * 
+     * @return string
+     */
+    private function fetchUri(){
+
+        $uri = '/';
+        
+        if(isset($_GET['uri'])){
+            $uri = $uri . rtrim($_GET['uri'], '/');
+        }
+
+        return $uri;
+    
+    }
+
+    private function parseUri($uri){
+        
+        $uri = explode('/', $uri);
+        $uri = array_filter($uri);
+        $uri = array_values($uri);
+
+        return $uri;
+
+    }
+
+}

@@ -45,43 +45,66 @@ use \InvalidArgumentException;
 use \UnexpectedValueException;
 use \DateTime;
 
-class JWT
-{
+final class JWT{
 
-    public function decode($jwt, $key = null, $verify = true)
-    {
+	/**
+	 * 
+	 * @param mixed $payload
+     * @param string $key
+     * @param string $algo
+     *
+     * @return string
+     */
+     public function encode($payload = '', $key = '', $algo = 'HS256'){
+
+        $header = array('typ' => 'JWT', 'alg' => $algo);
+        $segments = array();
+        $segments[] = $this->url_safe_b64_encode($this->json_encode($header));
+        $segments[] = $this->url_safe_b64_encode($this->json_encode($payload));
+        $signing_input = implode('.', $segments);
+
+        $signature = $this->sign($signing_input, $key, $algo);
+        $segments[] = $this->url_safe_b64_encode($signature);
+
+        return implode('.', $segments);
+
+    }
+
+	/**
+	 * 
+	 * @param string $jwt
+     * @param string $key
+     * @param bool $verify
+     *
+     * @return array
+     */
+    public function decode($jwt = '', $key = null, $verify = true){
 
         $tks = explode('.', $jwt);
 
-        if(count($tks) !== 3)
-        {
+        if(count($tks) !== 3){
             throw new UnexpectedValueException('Wrong number of segments');
         }
 
         list($headb64, $payloadb64, $cryptob64) = $tks;
 
-        if(null === ($header = $this->jsonDecode($this->urlSafeB64Decode($headb64))))
-        {
+        if(null === ($header = $this->json_decode($this->url_safe_b64_decode($headb64)))){
             throw new UnexpectedValueException('Invalid segment encoding');
         }
 
-        if(null === $payload = $this->jsonDecode($this->urlSafeB64Decode($payloadb64)))
-        {
+        if(null === $payload = $this->json_decode($this->url_safe_b64_decode($payloadb64))){
             throw new UnexpectedValueException('Invalid segment encoding');
         }
 
-        $sig = $this->urlSafeB64Decode($cryptob64);
+        $sig = $this->url_safe_b64_decode($cryptob64);
 
-        if($verify)
-        {
+        if($verify){
 
-            if(empty($header->alg))
-            {
+            if(empty($header->alg)){
                 throw new DomainException('Empty algorithm');
             }
 
-            if($sig !== $this->sign("$headb64.$payloadb64", $key, $header->alg))
-            {
+            if($sig !== $this->sign("$headb64.$payloadb64", $key, $header->alg)){
                 throw new UnexpectedValueException('Signature verification failed');
             }
         }
@@ -90,24 +113,15 @@ class JWT
 
     }
 
-    public function encode($payload, $key, $algo = 'HS256')
-    {
-
-        $header = array('typ' => 'JWT', 'alg' => $algo);
-        $segments = array();
-        $segments[] = $this->urlSafeB64Encode($this->jsonEncode($header));
-        $segments[] = $this->urlSafeB64Encode($this->jsonEncode($payload));
-        $signing_input = implode('.', $segments);
-
-        $signature = $this->sign($signing_input, $key, $algo);
-        $segments[] = $this->urlSafeB64Encode($signature);
-
-        return implode('.', $segments);
-
-    }
-
-    public function sign($msg, $key, $method = 'HS256')
-    {
+	/**
+	 * 
+	 * @param string $msg
+     * @param string $key
+     * @param string $method
+     *
+     * @return string
+     */
+    public function sign($msg = '', $key = '', $method = 'HS256'){
 
         $methods = array(
             'HS256' => 'sha256',
@@ -115,8 +129,7 @@ class JWT
             'HS512' => 'sha512',
         );
 
-        if(empty($methods[$method]))
-        {
+        if(empty($methods[$method])){
             throw new DomainException('Algorithm not supported');
         }
 
@@ -124,17 +137,19 @@ class JWT
 
     }
 
-    public function jsonDecode($input)
-    {
+	/**
+	 * 
+	 * @param string $input
+     *
+     * @return object
+     */
+    public function json_decode($input = ''){
 
         $obj = json_decode($input);
 
-        if(function_exists('json_last_error') && $errno = json_last_error())
-        {
-            $this->handleJsonError($errno);
-        }
-        else if($obj === null && $input !== 'null')
-        {
+        if(function_exists('json_last_error') && $errno = json_last_error()){
+            $this->handle_json_error($errno);
+        }else if($obj === null && $input !== 'null'){
             throw new DomainException('Null result with non-null input');
         }
 
@@ -142,17 +157,19 @@ class JWT
 
     }
 
-    public function jsonEncode($input)
-    {
+	/**
+	 * 
+	 * @param mixed $input
+     *
+     * @return string
+     */
+    public function json_encode($input = ''){
 
         $json = json_encode($input);
 
-        if(function_exists('json_last_error') && $errno = json_last_error())
-        {
-            $this->handleJsonError($errno);
-        }
-        else if($json === 'null' && $input !== null)
-        {
+        if(function_exists('json_last_error') && $errno = json_last_error()){
+            $this->handle_json_error($errno);
+        }else if($json === 'null' && $input !== null){
             throw new DomainException('Null result with non-null input');
         }
 
@@ -160,13 +177,11 @@ class JWT
 
     }
 
-    public function urlSafeB64Decode($input)
-    {
+    public function url_safe_b64_decode($input = ''){
         
         $remainder = strlen($input) % 4;
 
-        if($remainder)
-        {
+        if($remainder){
             $padlen = 4 - $remainder;
             $input .= str_repeat('=', $padlen);
         }
@@ -175,13 +190,11 @@ class JWT
 
     }
 
-    public function urlSafeB64Encode($input)
-    {
+    public function url_safe_b64_encode($input){
         return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
     }
 
-    private function handleJsonError($errno)
-    {
+    private function handle_json_error($errno){
 
         $messages = array(
             JSON_ERROR_DEPTH => 'Maximum stack depth exceeded',

@@ -36,17 +36,20 @@
  * @since	Version 1.0.0
  *
  */
+
 namespace System\Core;
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-class Exceptions
-{
+use System\Core\Config;
 
-    private $display_error;
-    private $log_error;
-    private $timezone;
-    private $date_format;
+final class Exceptions extends Config{
+
+    private $settings = null;
+    private $display_error = null;
+    private $log_error = null;
+    private $timezone = null;
+    private $date_format = null;
 
     private $severity = array(
         E_ERROR => 'Error',
@@ -63,64 +66,42 @@ class Exceptions
         E_STRICT => 'Runtime Notice'
     );
 
-    public function __construct()
-    {
-        $this->display_error = Config::getDisplayError();
-        $this->log_error = Config::getLogError();
-        $this->timezone = Config::getTimezone();
-        $this->date_format = Config::getDateFormat();
+    public function __construct(){
+
+        parent::__construct();
+
+        self::config()->load('app');
+        $this->settings = self::config()->get('app');
+
+        $this->display_error = $this->settings['development_environment'] ? true : false;
+        $this->log_error = true;
+        $this->timezone = $this->settings['timezone'];
+        $this->date_format = $this->settings['date_format'];
+
     }
 
-    public function errorHandler(Int $severity, String $message, String $file, Int $line)
-    {
-        $this->handle($severity,$message,$file,$line);
-    }
+	/**
+	 * 
+     * @param string $severity
+     * @param string $message
+     * @param string $file
+     * @param int $line
+     * 
+     */
+    public function error_handler($severity = '', $message = '', $file = '', $line = ''){
 
-    private function handle(Int $severity, String $message, String $file, Int $line)
-    {
         date_default_timezone_set($this->timezone);
 
         $date = date($this->date_format);
         $severity = $this->severity[$severity];
         $message = '[' .$date. '] [' . $severity . '] ' . $message . ' - ' . $file . ' --> Line ' . $line;
+        
+        write_log($message, 'error');
 
-        if($this->display_error)
-        {
-            $this->displayLog($message);
+        if($this->display_error){
+            display_log($message);
         }
 
-        if($this->log_error)
-        {
-            $this->writeLog($message);
-        }
     }
 
-    private function writeLog(String $message)
-    {
-        $error_log_file = DATA . DS . 'logs' . DS . 'errors.txt';
-
-        $fp = fopen($error_log_file, 'ab');
-
-        if(flock($fp, LOCK_EX))
-        {
-            fwrite($fp, $message . "\n");
-            fflush($fp);
-            flock($fp, LOCK_UN);
-        }
-        else
-        {
-            $this->displayLog('Unable to write error log file.');
-        }
-
-        fclose($fp);
-    }
-
-    private function displayLog(String $message)
-    {
-        $error = '<div style="position: relative; z-index: 999; font-family: Helvetica, Arial, sans-serif; font-size: .9rem; display: block; clear: both; background-color: #fcf8e3; border: 1px solid #843534; color: #8a6d3b; box-sizing: border-box; padding: 20px; margin-bottom: 10px;">';
-        $error .= $message;
-        $error .= '</div>';
-        echo $error;
-    }
-    
 }

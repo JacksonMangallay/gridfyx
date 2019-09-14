@@ -36,85 +36,105 @@
  * @since	Version 1.0.0
  *
  */
+
 namespace System\Core;
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-use Exception;
+use System\Core\Config;
 
-class Autoload
-{
-	/**
-	 * Store all routes
-	 */
-    private static $directories = [
+final class Autoload extends Config{
+
+    private $directories = array(
         'system/core',
-        'system/library'
-    ];
+        'system/helpers',
+        'system/library',
+        'system/third_party'
+    );
 
-    private static $directory;
+    public function __construct(){
 
-    public static function addDirectory(String $directory)
-    {
+        parent::__construct();
+        self::config()->load('autoload');
 
-        if(strpos($directory, 'system') !== false)
-        {
-            throw new Exception('Unable to load restricted directory ' . $directory . '!');
+        foreach(self::config()->get('autoload') as $key){
+
+            $dir = BASEPATH . '/' . $key;
+
+            if(!is_dir($dir)){
+                display_log('Directory ' . $dir . ' does not exist!');
+            }
+
+            if(strpos($key, 'system') !== false){
+                display_log('Unable to load files from restricted directory ' . $key . '!');
+            }
+
+            array_push($this->directories, $key);
+            
         }
 
-        array_push(self::$directories, $directory);
-    
+        $this->initialize();
+
     }
 
-    /*
-    *---------------------------------------------------------------
-    * Load autoload.php and load classes inside set folders
-    *---------------------------------------------------------------
-    */
-    public static function initialize()
-    {
+    public function initialize(){
 
-        load_config('autoload');
+        spl_autoload_register(function($class){
 
-        spl_autoload_register(function(String $class)
-        {
+            foreach($this->directories as $key){
 
-            foreach(self::$directories as $directory)
-            {
-
-                $file = BASEPATH . DS . $directory;
+                $dir = BASEPATH . '/' . $key;
                 $class = str_replace('\\', '/', $class);
-                $class_file = self::getRealPath($file, $class) . '.php';
+                $filename = $this->real_path($dir, $class) . '.php';
 
-                if(file_exists($class_file))
-                {
-                    require_once($class_file);
+                //Check and load class file
+                if(file_exists($filename)){
+                    require_once($filename);
                 }
 
             }
 
         });
 
-    } 
+    }
 
-    private static function getRealPath(String $path, String $class)
-    {        
-        
-        $arr_path = explode('/', $path);
-        $arr_class = explode('/', $class);
+	/**
+	 * 
+     * @param string $dir
+     * @param string $class
+     * 
+     * @return string
+     */
+    private function real_path($dir = '', $class = ''){
 
-        $file_path = array_merge($arr_path, $arr_class);
-        $file_path = array_unique($file_path);
+        if(is_empty($dir) || is_empty($class)){
+            return false;
+        }
 
-        $relative_class_name = end($file_path);
-        
-        $file_path = array_map('strtolower', $file_path);
+        //Convert path to an array
+        $array_path = explode('/', $dir);
 
-        array_pop($file_path);
-        array_push($file_path, $relative_class_name);
-        $file_path = array_unique($file_path);
+        //Convert class with namespace to an array
+        $array_class = explode('/', $class);
 
-        return implode('/', $file_path);
+        //Merge path and class arrays and remove duplicate values to get relative class path
+        $filepath = array_merge($array_path, $array_class);
+        $filepath = array_unique($filepath);
+
+        //Get relative class name (without its namespace)
+        $relative_classname = end($filepath);
+
+        //Transform filepath string to lower cases to match folder naming convention
+        $filepath = array_map('strtolower', $filepath);
+
+        //Remove last array value from path and push the relative class name
+        array_pop($filepath);
+        array_push($filepath, $relative_classname);
+        $filepath = array_unique($filepath);
+        $filepath = implode('/', $filepath);
+
+        //Transform class array into string and return value
+        return strtolower($filepath);
 
     }
 
