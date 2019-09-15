@@ -43,6 +43,10 @@ final class Session{
             return false;
         }
 
+        if(is_empty($_SESSION[$key])){
+            return false;
+        }
+
         return $_SESSION[$key];
 
     }
