@@ -7,10 +7,10 @@ use System\Core\Config;
 class Router{
 
     private static $routes = array();
-    private static $controller = null;
-    private static $method = null;
+    private static $controller = 'App';
+    private static $method = 'index';
     private static $params = array();
-    private static $namespace = '';
+    private static $namespace = 'Application\\Controllers\\';
     private static $config = null;
 
     //URI parameter types
