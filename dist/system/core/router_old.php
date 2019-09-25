@@ -2,8 +2,6 @@
 
 defined('BASEPATH') OR exit('Direct access is forbidden');
 
-use System\Core\Config;
-
 class Router{
 
     private static $routes = array();
@@ -11,7 +9,6 @@ class Router{
     private static $method = null;
     private static $params = array();
     private static $namespace = '';
-    private static $config = null;
 
     //URI parameter types
     private static $wildcards = array(
@@ -29,10 +26,6 @@ class Router{
 
     //URL flag is match found in routes
     private static $match = false;
-
-    public function __construct(){
-        self::$config = new Config();
-    }
 
 	/**
 	 * 
@@ -106,7 +99,7 @@ class Router{
         self::$routes['POST'] = array();
 
         //Load all routes
-        self::$config->load('routes');
+        self::router_config();
 
         if(!self::has_default_controller()){
             throw new Exception('Default controller is not set!');
@@ -241,19 +234,6 @@ class Router{
 
     }
 
-    public static function load(String $route){
-
-        /** 
-         * Routes should be found at /application/routes 
-         */
-        $route_file = DIR_ROUTES . '/' . $route . '.php';
-        
-        if(file_exists($route_file)){
-            include($route_file);
-        }
-        
-    }
-
 	/**
 	 * 
      * @param string $request_method
@@ -308,6 +288,18 @@ class Router{
             self::$routes[$request_method][$url]['params'] = $args['params'];
         }else{
             self::$routes[$request_method][$url]['params'] = '';
+        }
+
+    }
+
+    private static function router_config(){
+
+        self::set_default_controller('IndexController');
+        self::set_default_method('index');
+        self::set_namespace('Application\\Controllers\\');
+        
+        foreach(glob(DIR_ROUTES . '/*.php') as $file){
+            include($file);
         }
 
     }
