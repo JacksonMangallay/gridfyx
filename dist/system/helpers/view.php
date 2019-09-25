@@ -36,7 +36,7 @@ class View{
         }
 
         ob_start();
-        require_once($file);
+        include($file);
         $output = ob_get_contents();
         $output = $this->minify_output($output);
         ob_end_clean();
