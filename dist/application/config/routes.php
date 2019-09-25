@@ -7,5 +7,6 @@ Router::get('/',array(
 ));
 
 Router::get('/about',array(
-    'method' => 'about'
+    'controller' => 'About',
+    'method' => 'index'
 ));
