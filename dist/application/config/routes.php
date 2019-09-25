@@ -5,3 +5,7 @@ defined('BASEPATH') OR exit('Direct access is forbidden');
 Router::get('/',array(
     'method' => 'index'
 ));
+
+Router::get('/about',array(
+    'method' => 'about'
+));
