@@ -43,11 +43,11 @@ class Minify extends Config{
         }
 
         if(!is_array($styles)){
-            throw new Exception('Minify: Stylesheets must be in array.');
+            throw new InvalidArgumentException('Minify: Stylesheets must be in array!');
         }
 
         if((int)count($styles) < 1){
-            throw new Exception('Minify: At least one stylesheet is needed for minification!');
+            throw new InvalidArgumentException('Minify: At least one stylesheet is needed for minification!');
         }
 
         $css = '';
@@ -84,11 +84,11 @@ class Minify extends Config{
         }
 
         if(!is_array($scripts)){
-            throw new Exception('Minify: Scripts must be in array.');
+            throw new InvalidArgumentException('Minify: Scripts must be in array!');
         }
 
         if((int)count($scripts) < 1){
-            throw new Exception('Minify: At least one script is needed for minification!');
+            throw new InvalidArgumentException('Minify: At least one script is needed for minification!');
         }
         
         $js = '';
