@@ -26,13 +26,13 @@ class View{
     final public function render($view, $params = ''){
 
         if(is_empty($view)){
-            throw new Exception('Unable to render undefined view file!');
+            throw new InvalidArgumentException('Unable to render undefined view file!');
         }
 
         $file = DIR_VIEWS . '/' . $view . '.php';
 
         if(!file_exists($file)){
-            throw new Exception('Unable to render non-existing view file!');
+            throw new InvalidArgumentException('Unable to render non-existing view file!');
         }
 
         ob_start();
