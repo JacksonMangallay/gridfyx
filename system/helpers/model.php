@@ -2,7 +2,7 @@
 
 namespace System\Helpers;
 
-defined('BASEPATH') OR exit('Direct access is forbidden');
+defined('BASEPATH') || exit('Direct access is forbidden');
 
 use System\Core\Database;
 use Exception;

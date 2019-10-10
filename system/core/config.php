@@ -2,7 +2,7 @@
 
 namespace System\Core;
 
-defined('BASEPATH') OR exit('Direct access is forbidden');
+defined('BASEPATH') || exit('Direct access is forbidden');
 
 class Config{
 

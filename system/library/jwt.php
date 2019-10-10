@@ -2,7 +2,7 @@
 
 namespace System\Library;
 
-defined('BASEPATH') OR exit('Direct access is forbidden');
+defined('BASEPATH') || exit('Direct access is forbidden');
 
 use \DomainException;
 use \InvalidArgumentException;

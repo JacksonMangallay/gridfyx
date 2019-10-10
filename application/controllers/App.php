@@ -2,7 +2,7 @@
 
 namespace Application\Controllers;
 
-defined('BASEPATH') OR exit('Direct access is forbidden');
+defined('BASEPATH') || exit('Direct access is forbidden');
 
 use System\Helpers\Controller;
 
