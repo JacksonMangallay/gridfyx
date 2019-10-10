@@ -30,7 +30,7 @@ final class Encryption{
         $this->data = $data;
 
         if(!$this->validate_data()){
-            throw new UnexpectedValueException();
+            throw new InvalidArgumentException('Invalid data parameter!');
         }
 
         $str = openssl_encrypt($this->data, $this->method, $this->key, $this->options, $this->getIV());
@@ -60,7 +60,7 @@ final class Encryption{
         $this->data = $data;
 
         if(!$this->validate_data()){
-            throw new UnexpectedValueException();
+            throw new InvalidArgumentException('Invalid data parameter!');
         }
 
         $str = openssl_decrypt($this->data, $this->method, $this->key, $this->options, $this->getIV());

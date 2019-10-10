@@ -72,7 +72,7 @@ final class File{
 
 
 		}catch(Exception $e){
-			display_log($e->getMessage());
+			throw new InvalidArgumentException($e->getMessage());
 		}
 
 	}
@@ -129,7 +129,7 @@ final class File{
 		    return $file_name;
 
 		}catch(Exception $e){
-			display_log($e->getMessage());
+			throw new InvalidArgumentException($e->getMessage());
 		}
 
 	}
@@ -314,7 +314,7 @@ final class File{
 		    return $mime;
 
 		}catch(Exception $e){
-			display_log($e->getMessage());
+			throw new InvalidArgumentException($e->getMessage());
 		}
 
 	}
