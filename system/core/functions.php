@@ -131,15 +131,17 @@ if(!function_exists('is_https')){
      */
     function is_https(){
     
+        $is_https = false;
+
         if(!empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off'){
-            return true;
+            $is_https = true;
         }elseif(isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https'){
-            return true;
+            $is_https = true;
         }elseif(!empty($_SERVER['HTTP_FRONT_END_HTTPS']) && strtolower($_SERVER['HTTP_FRONT_END_HTTPS']) !== 'off'){
-            return true;
+            $is_https = true;
         }
     
-        return false;
+        return $is_https;
     
     }
 
