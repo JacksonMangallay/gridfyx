@@ -22,7 +22,7 @@ class Model extends Database{
     public function select($query = ''){
         
         if(is_empty($query)){
-            throw new Exception('Undefined select query!');
+            throw new UnexpectedValueException();
         }
 
         $this->query = 'SELECT ' . $query . ' FROM ';
@@ -37,7 +37,7 @@ class Model extends Database{
     public function from($table = ''){
 
         if(is_empty($table)){
-            throw new Exception('Undefined database table!');
+            throw new UnexpectedValueException();
         }
 
         $this->table = $table;
@@ -54,11 +54,11 @@ class Model extends Database{
     public function where($column = '', $value = ''){
         
         if(is_empty($column)){
-            throw new Exception('Undefined table column!');
+            throw new UnexpectedValueException();
         }
 
         if(is_empty($value)){
-            throw new Exception('Undefined parameter value!');
+            throw new UnexpectedValueException();
         }
 
         $this->where[$column] = $value;
