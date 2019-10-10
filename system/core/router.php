@@ -42,7 +42,7 @@ class Router{
     public static function set_default_controller($controller = ''){
 
         if(is_empty($controller)){
-            display_log('Default controller should neither be null nor empty.', true);
+            throw new InvalidArgumentException('Default controller should neither be null nor empty!');
         }
 
         self::$controller = $controller;
@@ -57,7 +57,7 @@ class Router{
     public static function set_default_method($method = ''){
 
         if(is_empty($method)){
-            display_log('Default method should neither be null nor empty.', true);
+            throw new InvalidArgumentException('Default method should neither be null nor empty!');
         }
 
         self::$method = $method;
@@ -72,7 +72,7 @@ class Router{
     public static function set_namespace($namespace = ''){
 
         if(is_empty($namespace)){
-            throw new Exception('Controller namespace is required!');
+            throw new InvalidArgumentException('Controller namespace is required!');
         }
 
         self::$namespace = $namespace;
@@ -109,11 +109,11 @@ class Router{
         self::$config->load('routes');
 
         if(!self::has_default_controller()){
-            throw new Exception('Default controller is not set!');
+            throw new InvalidArgumentException('Default controller is not set!');
         }
 
         if(!self::has_default_method()){
-            throw new Exception('Default method is not set!');
+            throw new InvalidArgumentException('Default method is not set!');
         }
 
         //Fetch all routes depending on request method (GET or POST) 
@@ -264,11 +264,11 @@ class Router{
     private static function store_routes($request_method = 'GET', $url = '', $args = array()){
 
         if(!isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] !== $request_method){
-            throw new Exception('Invalid HTTP request!');
+            throw new InvalidArgumentException('Invalid HTTP request!');
         }
 
         if(!isset($url) || empty($url)){
-            throw new Exception('URL request is not set!');
+            throw new InvalidArgumentException('URL request is not set!');
         }
 
         /**
