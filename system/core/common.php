@@ -78,14 +78,14 @@ if(!function_exists('third_party'))
 
         if(is_empty($dir))
         {
-            throw new Exception('Unable to load third party ' . $dir);
+            throw new UnexpectedValueException();
         }
 
         $file = DIR_THIRD_PARTY . '/' . $dir . '/' . 'index.php';
 
         if(!file_exists($file))
         {
-            throw new Exception('Third party file does not exist!');
+            throw new UnexpectedValueException();
         }
 
         require_once($file);
