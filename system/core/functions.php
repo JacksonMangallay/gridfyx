@@ -275,13 +275,13 @@ if(!function_exists('plugin')){
         $plugin = DIR_PLUGINS . '/' . $dir;
 
         if(!is_dir($plugin)){
-            throw new Exception('Plugin ' . $dir . ' does not exist!');
+            throw new UnexpectedValueException();
         }
 
         $file = DIR_PLUGINS . '/' . $dir . '/index.php';
 
         if(!file_exists($file)){
-            throw new Exception('Plugin unavailable!');
+            throw new UnexpectedValueException();
         }
 
         require_once($file);
